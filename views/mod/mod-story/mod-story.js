@@ -1,105 +1,137 @@
 (function($) {
 
-    var nav = $("#main").nav(),
-        app = $("main").app(),
-        view = {},
-        navItemName = "inspections",
-        navItem = nav.get(navItemName);
-    
-    view = {
+    "use strict";
+
+    var app = $("main").app(),
+        modStoryList,
+        modStory;
+        
+    modStoryList = {
         
         init: function() {
-            
-            // Bind data
-            view.bindData();
+        
+            var storyList = app.models.Story.all(),
+                story,
+                user,
+                category;
+                
+                // TMP: Create sample data
 
-            // Set onLoad callbacks
-            navItem.onLoad = view.onLoad;
-            if(app.views[nav.current].id === navItemName) {
-                view.onLoad();               
-            }
+                if (storyList.length < 2) {                
+                    user = app.models.User.create({
+                        username: "emi420",
+                        email: "emi420@gmail.com"
+                    });
+                    user.save();
+
+                    category = app.models.Category.create({
+                        title: "test",
+                    });
+                    category.save();
+
+                    story = app.models.Story.create({
+                        title: "This is my story",
+                        pop: 0,
+                        date: "10/03/2013",
+                        comments: 2,
+                        description: "Lorem ipsum dolor amet, yes.",
+                        user: user,
+                        category: category,
+                    });
+                    story.save();
+
+                    story = app.models.Story.create({
+                        title: "This is my story 2",
+                        pop: 3,
+                        date: "12/03/2013",
+                        comments: 10,
+                        description: "Lorem ipsum dolor amet, yes.",
+                        user: user,
+                        category: category,
+                    });
+                    story.save();
+                }
             
         },
         
-        onLoad: function() {
-            nav.header.navLinks.create.show();
-            nav.header.navLinks.next.hide();
-            app.data.get("inspections").sort(app.models.sort);
+        onLoadView: function() {
+            app.data.get("story").sort(app.models.sort);
         },
         
         handlers: {
-            go: function(inspection) {
-                if (event.target.className !== "delete" && inspection.status === "draft") {
-                    app.data.set("currentInspection", inspection);
-                    app.go("inspection_1_info");
-                }                                                                
-            },
-            destroy: function(inspection) {
-                setTimeout(function() {
-                    if (confirm(app.s.ARE_YOU_SURE[app.lang]) === true) {
-                        app.data.get("inspections").remove(inspection);
-                        app.models.Inspection.destroy(inspection.id);
-                    }
-                }, 0);
+            go: function(story) {
+                app.data.set("currentStory", story);
+                app.go("story");
             },
         },
         
         /*
          * Bind data
          */         
-        bindData: function() {
-            var inspections = app.data.set(
-                "inspections", 
-                app.models.Inspection.all()
+        bindData: function(element) {
+            var story = app.data.set(
+                "story", 
+                app.models.Story.all()
             );
             
-            inspections.showEmptyMsg = function() {
-                if (this.length === 0) {
-                    return "visible";
-                } else {
-                    return "";
+            $.extend({
+                showEmptyMsg:function() {
+                    if (this.length === 0) {
+                        return "visible";
+                    } else {
+                        return "";
+                    }
+                },    
+                showList: function() {
+                    if (this.length === 0) {
+                        return "";
+                    } else {
+                        return "visible";
+                    }
                 }
-            }
-
-            inspections.showList = function() {
-                if (this.length === 0) {
-                    return "test";
-                } else {
-                    return "visible";
-                }
-            }
+            }, story);
             
-            // Inspections
             app.models.bind(
-                 {"inspections": app.models.observableArray(inspections)},
-                 $("#inspections")[0],
+                 {"story": app.models.observableArray(story)},
+                 element,
                  {
-                    open: view.handlers.go,
-                    destroy: view.handlers.destroy                     
+                    go: modStoryList.handlers.go,
                  }
-            );    
+            );
  
         },
                     
     }
     
-    // Initialize view
-    view.init()
+    // Initialize story-list
+    modStoryList.init()
+
+
+    modStory = {
+        /*
+         * Bind data
+         */         
+        bindData: function(element) {
+            var currentStory = app.data.get("currentStory");
+
+            if (currentStory === undefined) {
+                currentStory = app.models.Story.create({});
+            }
+
+            app.models.applyBindings(
+                { 
+                    story: currentStory 
+                },
+                element
+            );
+        },
+    }
     
-    // Draw sample
-    /*$("#canvasTest").drawArea({
-        width: 640,
-        height: 480
-    });*/
+    // Public modules
+    $.extend({modStoryList: modStoryList}, app);
+    $.extend({modStory: modStory}, app);
     
-    /*
-     * Controllers
-     */    
-     
-    nav.header.navLinks.create.$el.onTapEnd(function() {
-        app.data.set("currentInspection", app.models.Inspection.create({}));
-        app.go("inspection_1_info");
-    });
-    
-        
+    // FIXME CHECK
+    $._modContinue();
+            
 }(Mootor));

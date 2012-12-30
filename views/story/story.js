@@ -18,28 +18,10 @@
         },
         
         onLoad: function() {
-            view.bindData();
+             app.modStory.bindData($("#story")[0]);
         },
         
         handlers: {
-        },
-        
-        /*
-         * Bind data
-         */         
-        bindData: function() {
-            var currentStory = app.data.get("currentStory");
-
-            if (currentStory === undefined) {
-                currentStory = app.models.Story.create({});
-            }
-
-            app.models.applyBindings(
-                { 
-                    story: currentStory 
-                },
-                $("#story")[0]
-            );
         },
                     
     }

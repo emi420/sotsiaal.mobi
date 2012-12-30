@@ -17,13 +17,17 @@
 %body.main
 
     %header.moo-header
-        %nav
-            %a#navBack.moo-nav-back{:href=>"#moo-nav-back"} Back
-
-        %nav.app
-            %a#navSearch.moo-nav-search{:href=>"#moo-nav-search"} Search
-            %a#navCreate.moo-nav-create{:href=>"#moo-nav-create"} Create
-
-        %h1 Sotsiaal
+        .moo-header-wrapper
+            %nav
+                %a#navBack.moo-nav-back{:href=>"#moo-nav-back"}
+                    %span Back
+                %a#navSearch.moo-nav-search{:href=>"#moo-nav-search"} 
+                    %span Search
+    
+            %nav.app
+                %a#navCreate.moo-nav-create{:href=>"#moo-nav-create"}
+                    %span Create
+    
+            %h1 Sotsiaal
 
     #main

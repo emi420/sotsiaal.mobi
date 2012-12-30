@@ -1,34 +1,25 @@
-// -- Default theme
-
-// Compass used modules
+/*
+ * Default theme
+ */ 
+ 
 @import "compass/css3";
 @import "compass/utilities";
 
-// Mootor utilities
+// Default theme
+
+$context: ios;
+//$context: android;
+
+@import "default.colors";
+@import "default.nav";
+@import "default.views.index";
+
+// Mootor
+
 @import "mootor.utilities";
-@import "normalize";
-
-// Global variables
-@import "base/globals/colors";
-@import "base/globals/text";
-
-// Mootor plugins
-@import "mootor.nav";
 @import "mootor.ui";
-
-// shared elements
-@import "base/shared/sprites-ui";
-
-// General
-@import "base/shared/layout";
-@import "base/shared/nav";
-
-@import "base/shared/forms";
-
-@import "base/shared/utilities";
-
-// Views
-@import "views/index";
-
+@import "mootor.sprites";
+@import "mootor.default.normalize";
+@import "mootor.default.text";
 
 

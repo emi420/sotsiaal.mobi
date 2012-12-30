@@ -14,8 +14,7 @@
            i;
            
        console.log("Ready! making app...");
-           
-         
+            
        /*
         * Views
         */
@@ -102,21 +101,6 @@
            
        }, app);
 
-       
-       /*
-        * App controllers
-        */
-        
-       /*
-        *
-        * Example:
-        *
-        * $("#mybutton").onTapEnd(function() {
-        *   alert("hello!");
-        * });
-        */       
-
-
         /*
          * Modules
          */
@@ -127,36 +111,57 @@
             modTopbar: {},
        }, $);
        
+       // FIXME CHECK
        var loadModules = function(callback) {
         
             $._modContinue = callback;
-
-            // Load 'topbar' module
-            $.ajax({
-                url: "views/mod/mod-topbar/mod-topbar.html",
-                callback: function(response) {
-
-                    $.modTopbar.html = response;
-
-                    $.ajax({
-                        url: "views/mod/mod-story-list/mod-story-list.html",
-                        callback: function(response) {
-
-                            $.modStoryList.html = response;
-    
-                            $.require(
-                                "views/mod/mod-topbar/mod-topbar.js",
-                                function() {
-                                    $.require(
-                                        "views/mod/mod-story-list/mod-story-list.js"
-                                    );                                
-                                }
-                            );
-                        }
-                   });
-
+            
+            var i;
+            
+            var modules = [
+                {
+                    name: "mod-topbar",
+                },
+                {
+                    name: "mod-story-list",
+                    js: false
+                },
+                {
+                    name: "mod-story",
+                    html: false
+                },
+            ]
+            
+            var loadModule = function(module) {
+            
+                if (module.js !== false) {
+                    callback = function() {
+                        $.require("views/mod/" +  module.name + "/" + module.name + ".js")
+                    }
                 }
-            });
+ 
+                if (module.html !== false) {
+                    $.ajax({
+                        url: "views/mod/" +  module.name + "/" + module.name + ".html",
+                        callback: function(response) {
+                            if ($[module.name] === undefined) {
+                                $[module.name] = {};
+                            }
+                            $[module.name].html = response;
+                            callback();
+                        }
+                    });
+                    
+                } else {
+                    callback();
+                }
+ 
+            }
+            
+            for (i = 0; i < modules.length; i++) {
+                if (modules[i])
+                loadModule(modules[i])
+            }
 
         }
         
@@ -168,10 +173,7 @@
            }
 
         });
-       
-       /*
-        * Initialization
-        */
+
 
    });
    
