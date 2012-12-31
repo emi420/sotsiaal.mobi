@@ -1,0 +1,73 @@
+@import "mootor.nav";
+
+/*
+ * Utilities
+ */
+ 
+ 
+@mixin _mootor-sprite($name) {
+    @media screen and ($media-query-1) {
+        @include mootor-sprite($name);
+    }
+    @media screen and ($media-query-2) {
+        @include mootor-sprite($name + "x2");
+    }    
+}
+
+
+/* 
+ * Header
+ */  
+
+@include header($navDisplay: float);
+@include headerStyle();
+
+/* 
+ * Panels
+ */   
+
+.moo-panels {
+    background: #333 url(../img/bg/panels.png); 
+}
+
+.moo-panel  {
+    background: #fff url(../img/bg/panel.png); 
+}
+
+/* 
+ * Navigation buttons
+ */ 
+
+.moo-nav-create,
+.moo-nav-search {
+    @include headerHeight();
+    position: absolute;
+    top:0;
+    text-indent: -9999px;
+    span {
+        display: block;        
+    }
+}
+
+.moo-nav-create { 
+    right: 0;
+    border-left: 1px solid rgba(255,255,255,.2);
+    box-shadow: -1px 0 1px rgba(0,0,0,.2) ;
+    padding: 0 1em 0 0 !important;
+    span {
+        margin: 1em .2em 0 1.2em;
+        @include _mootor-sprite("header-nav-create");
+    }
+}
+
+
+.moo-nav-search {
+    border-right: 1px solid rgba(0,0,0,.2);
+    box-shadow: 1px 0 1px rgba(255,255,255,.2);
+    left: 0;    
+    span {
+        margin: .5em .2em 0;
+        @include _mootor-sprite("header-nav-search");
+    }
+}
+

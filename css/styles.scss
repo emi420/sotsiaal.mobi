@@ -1,24 +1,20 @@
-/*
- * Default theme
- */ 
- 
+
 @import "compass/css3";
 @import "compass/utilities";
+@import "mootor.sprites";
 
 // Default theme
 
 $context: ios;
 //$context: android;
 
-@import "default.colors";
-@import "default.nav";
-@import "default.views.index";
-
-// Mootor
+@import "default/colors";
+@import "default/nav";
+@import "default/mod-story-list";
+@import "default/views.index";
 
 @import "mootor.utilities";
 @import "mootor.ui";
-@import "mootor.sprites";
 @import "mootor.default.normalize";
 @import "mootor.default.text";
 

@@ -1,0 +1,64 @@
+@import "mootor.ui.lists";
+
+// Story list
+
+.story-list {
+    
+    opacity: 0;
+    height: 0;
+    position: absolute;
+    
+    ul {
+        @if $context == ios {
+            @include list(
+                $rounded:   true, 
+                $shadows:   true
+            );
+        } @else {
+            @include list(
+                $rounded:   true
+            );            
+        }
+        
+        li {
+            min-height: 70px;
+        }
+
+        h2,
+        .info {
+            width: 80%;
+        }
+        .pop {
+            text-align: center;
+            padding: 0.7em 0.4em;
+            background: #f8f8f8;
+            border-radius: 10em;
+            display: block;
+            color: $color-text-terciary;
+            font-size: 2em;
+            width: 2.5em;
+            height: 2.5em;
+            top: .5em;
+            right: .5em;
+            letter-spacing: -2pt;
+            position: absolute;         
+        }
+        
+        .info {
+            color: $color-text-terciary;
+            font-size: 1.2em;
+            margin: .75em 0 0;
+            .date {
+                font-weight: bold;
+            }
+        }
+    }
+    
+    &.visible {
+        opacity: 1;
+        height: auto;
+        position: relative;
+    }
+}
+
+

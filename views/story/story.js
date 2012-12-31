@@ -18,6 +18,7 @@
         },
         
         onLoad: function() {
+             $(nav.header.navLinks[0]).hide();
              app.modStory.bindData($("#story")[0]);
         },
         

@@ -169,7 +169,7 @@
         
            // Preload all views
            for (i = views.length; i--;) {
-               app.preload(views[i]);      
+               app.preload(views[i]);   
            }
 
         });

@@ -9,7 +9,7 @@
     %ul#storyList{:"data-bind"=>"foreach: story"}
         %li.story{:"data-bind"=>"tapEnd: $parent.go"}
             %h2.title{:"data-bind"=>"text: title"}
-            %p.desc{:"data-bind"=>"text: description"}
+            -# %p.desc{:"data-bind"=>"text: description"}
             .pop{:"data-bind"=>"text: pop"}
             .info
                 %span.date
