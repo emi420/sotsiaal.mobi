@@ -7,27 +7,41 @@
     opacity: 0;
     height: 0;
     position: absolute;
+    margin: 1.1em 0;
     
     ul {
         @if $context == ios {
             @include list(
                 $rounded:   true, 
-                $shadows:   true
+                $shadows:   true,
+                $item-margin: 0 1em 1.5em
             );
         } @else {
             @include list(
-                $rounded:   true
+                $rounded:   true,
+                $item-margin: 1.5em 1em
             );            
         }
         
         li {
             min-height: 70px;
         }
-
+        
         h2,
         .info {
             width: 80%;
         }
+
+        h2 {
+            margin-bottom: .75em;
+        }
+        
+        .info {
+           color: $light-neutral;
+            font-size: 1.4em;
+            margin: .75em 0 0;
+        }
+
         .pop {
             text-align: center;
             padding: 0.7em 0.4em;
@@ -38,19 +52,43 @@
             font-size: 2em;
             width: 2.5em;
             height: 2.5em;
-            top: .5em;
-            right: .5em;
+            top: .65em;
+            right: .65em;
             letter-spacing: -2pt;
             position: absolute;         
         }
         
-        .info {
-            color: $color-text-terciary;
-            font-size: 1.2em;
-            margin: .75em 0 0;
-            .date {
+        .date {
+            span {
                 font-weight: bold;
             }
+        }
+        
+        .user {
+            margin-left: 1em;
+            padding-left: 1.5em;
+            &::before {
+                content: "";
+                margin-left: -2em;
+                line-height: 15px;
+                position: absolute;
+                margin-top: -0.2em;
+                @include _mootor-sprite(mod-story-user);
+            }      
+        }      
+
+        .comments {
+            font-weight: bold;
+            margin-left: 1em;
+            padding-left: 1em;
+            &::before {
+                content: "";
+                margin-left: -2em;
+                line-height: 15px;
+                position: absolute;
+                margin-top: -0.2em;
+                @include _mootor-sprite(mod-story-comments);
+            }            
         }
     }
     

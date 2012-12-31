@@ -20,7 +20,8 @@
                 if (storyList.length < 2) {                
                     user = app.models.User.create({
                         username: "emi420",
-                        email: "emi420@gmail.com"
+                        email: "emi420@gmail.com",
+                        picture: "img/default/_temp/avatar.png"
                     });
                     user.save();
 
@@ -32,7 +33,7 @@
                     story = app.models.Story.create({
                         title: "This is my story",
                         pop: 0,
-                        date: "10/03/2013",
+                        date: "2d",
                         comments: 2,
                         description: "Lorem ipsum dolor amet, yes.",
                         user: user,
@@ -43,7 +44,7 @@
                     story = app.models.Story.create({
                         title: "This is my story 2",
                         pop: 3,
-                        date: "12/03/2013",
+                        date: "3m",
                         comments: 10,
                         description: "Lorem ipsum dolor amet, yes.",
                         user: user,

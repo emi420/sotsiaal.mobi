@@ -1,0 +1,35 @@
+.mod-topbar {
+    
+    padding-bottom: .5em;
+    overflow: hidden;
+    width: 100%;
+
+    h2 {
+        width: 25%;                
+        text-align: left;
+        margin: 1em 1.5em 0 .8em;
+        color: $color-text-main;
+    }
+    a {
+        text-align: center;
+        width: 12.5%;        
+        margin: 1em 0 0 0;
+    }
+    h2, a {
+        padding: 0.5em;
+        font-size: 2em;
+        display: block;
+        float: left;
+    }
+    .mod-topbar-active {
+        background: rgba(0,0,0,.05);
+        font-weight: bold;
+        border-radius: 2em;
+    }
+    
+    @if $context == ios {
+        h2, a {
+            text-shadow: 1px 1px 0px #fff;
+        }
+    }
+}

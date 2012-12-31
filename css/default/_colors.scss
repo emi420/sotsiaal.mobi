@@ -4,10 +4,12 @@
 
 // Main palette
 
+$color-main-darkbg: #fff;
 $color-main: #10155E;
 $color-accent: #EE3124;
-$light-neutral: #F0F0F0;
+$light-neutral: #CCCCCC;
 $dark-neutral: #181A1B;
+
 
 // Basic color variables
 
@@ -20,7 +22,7 @@ $color-bg-accent: lighten($color-accent, 30%);
 
 $color-text-strong: darken($color-main, 8%);
 $color-text-titles: $dark-neutral;
-$color-text-main: lighten($dark-neutral, 35%);
+$color-text-main: lighten($dark-neutral, 50%);
 $color-text-secondary: lighten($dark-neutral, 20%);
 $color-text-terciary: lighten($dark-neutral, 50%);
 

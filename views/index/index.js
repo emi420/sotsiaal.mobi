@@ -11,7 +11,7 @@
         init: function() {
         
             $("#index-mod-story-list").html($["mod-story-list"].html);
-            //$("#index-mod-topbar").html($["mod-topbar"].html);
+            $("#index-mod-topbar").html($["mod-topbar"].html);
 
             // Bind data
             app.modStoryList.bindData($("#index")[0]);

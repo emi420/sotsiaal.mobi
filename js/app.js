@@ -116,9 +116,11 @@
         
             $._modContinue = callback;
             
-            var i;
+            var i,
+                modules,
+                loadModule;
             
-            var modules = [
+            modules = [
                 {
                     name: "mod-topbar",
                 },
@@ -132,7 +134,7 @@
                 },
             ]
             
-            var loadModule = function(module) {
+            loadModule = function(module) {
             
                 if (module.js !== false) {
                     callback = function() {

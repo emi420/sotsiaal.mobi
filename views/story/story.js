@@ -11,10 +11,6 @@
         init: function() {
             // Set onLoad callbacks
             navItem.onLoad = view.onLoad;
-            if(app.views[nav.current].id === navItemName) {
-                view.onLoad();               
-            }
-            
         },
         
         onLoad: function() {

@@ -12,15 +12,13 @@
             -# %p.desc{:"data-bind"=>"text: description"}
             .pop{:"data-bind"=>"text: pop"}
             .info
-                %span.date
-                    %span{:"data-bind"=>"text: date"}
                 %span.comments
                     %span{:"data-bind"=>"text: comments"}
-                    comments
                 %span.user
-                    by 
                     %strong{:"data-bind"=>"text: user.username"}
                 %span.category
                     to
                     %span{:"data-bind"=>"text: category.title"}
+                %span.date
+                    %span{:"data-bind"=>"text: date"}
                     
