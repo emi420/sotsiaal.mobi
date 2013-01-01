@@ -13,7 +13,8 @@
             var storyList = app.models.Story.all(),
                 story,
                 user,
-                category;
+                category,
+                i;
                 
                 // TMP: Create sample data
 
@@ -29,28 +30,21 @@
                         title: "test",
                     });
                     category.save();
+                    
+                    for (i = 0; i < 5; i++) {
+                        story = app.models.Story.create({
+                            title: "This is my story " + i,
+                            pop: 0,
+                            date: "2d",
+                            comments: 2,
+                            description: "Lorem ipsum dolor amet, yes.",
+                            user: user,
+                            category: category,
+                        });
+                        story.save();
+                    }
 
-                    story = app.models.Story.create({
-                        title: "This is my story",
-                        pop: 0,
-                        date: "2d",
-                        comments: 2,
-                        description: "Lorem ipsum dolor amet, yes.",
-                        user: user,
-                        category: category,
-                    });
-                    story.save();
 
-                    story = app.models.Story.create({
-                        title: "This is my story 2",
-                        pop: 3,
-                        date: "3m",
-                        comments: 10,
-                        description: "Lorem ipsum dolor amet, yes.",
-                        user: user,
-                        category: category,
-                    });
-                    story.save();
                 }
             
         },

@@ -1,24 +1,5 @@
 @import "mootor.nav";
 
-/*
- * Utilities
- */
- 
- 
-@mixin _mootor-sprite($name) {
-    @media screen and ($media-query-1) {
-        @include mootor-sprite($name);
-    }
-    @media screen and ($media-query-2) {
-        @include mootor-sprite($name + "x2");
-    }    
-}
-
-h1 {
-    color: $color-main-darkbg;
-}
-
-
 /* 
  * Header
  */  
@@ -26,26 +7,17 @@ h1 {
 @include header($navDisplay: float);
 @include headerStyle();
 
-/* 
- * Panels
- */   
-
-.moo-panels {
-    background: #333 url(../img/default/nav-panels-panels.png); 
+h1 {
+    color: $color-main-darkbg;
+    font-weight: 100;
 }
 
-.moo-panel  {
-    background: #fff url(../img/default/nav-panels-panel.png); 
-}
-
-/* 
- * Navigation buttons
- */ 
+// Navigation buttons
 
 .moo-nav-create,
 .moo-nav-search {
     @include headerHeight();
-    position: absolute;
+    position: absolute !important;
     top:0;
     text-indent: -9999px;
     span {
@@ -59,7 +31,16 @@ h1 {
     box-shadow: -1px 0 1px rgba(0,0,0,.2) ;
     padding: 0 1em 0 0 !important;
     span {
-        margin: 1em .2em 0 1.2em;
+        @media screen and ( $media-query-0 ) {
+            margin: .65em 0 0 .9em;
+        }
+        @media screen and ( $media-query-1 ) {
+            margin: .85em 0 0 .9em;
+        }    
+        @media screen and ( $media-query-2 ) {
+            margin: .65em 0 0 .9em;
+        }   
+        
         @include _mootor-sprite("nav-header-create");
     }
 }
@@ -70,8 +51,27 @@ h1 {
     box-shadow: 1px 0 1px rgba(255,255,255,.2);
     left: 0;    
     span {
-        margin: .5em .2em 0;
+        @media screen and ( $media-query-0 ) {
+            margin: .1em;
+        }
+        @media screen and ( $media-query-1 ) {
+            margin: .4em;
+        }    
+        @media screen and ( $media-query-2 ) {
+            margin: .2em;
+        }   
         @include _mootor-sprite("nav-header-search");
     }
 }
 
+/* 
+ * Panels
+ */   
+
+.moo-panels {
+    background: #333 url(../img/default/nav-panels-panels.png); 
+}
+
+.moo-panel  {
+    background: #fff url(../img/default/nav-panels-panel.png); 
+}

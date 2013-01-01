@@ -7,7 +7,7 @@
 $color-main-darkbg: #fff;
 $color-main: #10155E;
 $color-accent: #EE3124;
-$light-neutral: #CCCCCC;
+$light-neutral: #A2A2A2;
 $dark-neutral: #181A1B;
 
 
@@ -22,7 +22,7 @@ $color-bg-accent: lighten($color-accent, 30%);
 
 $color-text-strong: darken($color-main, 8%);
 $color-text-titles: $dark-neutral;
-$color-text-main: lighten($dark-neutral, 50%);
+$color-text-main: $light-neutral;
 $color-text-secondary: lighten($dark-neutral, 20%);
 $color-text-terciary: lighten($dark-neutral, 50%);
 

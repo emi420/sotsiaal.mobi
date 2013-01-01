@@ -14,12 +14,12 @@
             @include list(
                 $rounded:   true, 
                 $shadows:   true,
-                $item-margin: 0 1em 1.5em
+                $item-margin: 0 1.5em 1.5em
             );
         } @else {
             @include list(
                 $rounded:   true,
-                $item-margin: 1.5em 1em
+                $item-margin: 0 1.5em 1.5em
             );            
         }
         
@@ -37,15 +37,17 @@
         }
         
         .info {
-           color: $light-neutral;
+            color: $light-neutral;
             font-size: 1.4em;
             margin: .75em 0 0;
+            font-weight: 100;
         }
 
         .pop {
             text-align: center;
             padding: 0.7em 0.4em;
             background: #f8f8f8;
+            font-weight: 100;
             border-radius: 10em;
             display: block;
             color: $color-text-terciary;
@@ -66,10 +68,12 @@
         
         .user {
             margin-left: 1em;
-            padding-left: 1.5em;
+            strong {
+                padding-left: 2em;
+                font-weight: bold;
+            }
             &::before {
                 content: "";
-                margin-left: -2em;
                 line-height: 15px;
                 position: absolute;
                 margin-top: -0.2em;
@@ -79,11 +83,12 @@
 
         .comments {
             font-weight: bold;
-            margin-left: 1em;
-            padding-left: 1em;
+            span {
+                padding-left: 2em;
+            }
             &::before {
                 content: "";
-                margin-left: -2em;
+                left: 1em;
                 line-height: 15px;
                 position: absolute;
                 margin-top: -0.2em;
