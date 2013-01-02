@@ -1,5 +1,15 @@
 @import "mootor.ui.lists";
 
+@mixin icon($icon-name) {
+    &::before {
+        content: "";
+        line-height: 15px;
+        position: absolute;
+        margin-top: 3px;
+        @include _mootor-sprite($icon-name);
+    }      
+}
+
 // Story list
 
 .story-list {
@@ -37,20 +47,20 @@
         }
         
         .info {
-            color: $light-neutral;
-            font-size: 1.4em;
+            font-size: 1.5em;
             margin: .75em 0 0;
             font-weight: 100;
+            color: $color-text-main;
         }
-
+        
         .pop {
             text-align: center;
-            padding: 0.7em 0.4em;
+            padding: 0.6em 0.4em;
             background: #f8f8f8;
             font-weight: 100;
             border-radius: 10em;
             display: block;
-            color: $color-text-terciary;
+            color: $color-text-main;
             font-size: 2em;
             width: 2.5em;
             height: 2.5em;
@@ -67,33 +77,21 @@
         }
         
         .user {
-            margin-left: 1em;
+            margin-left: .5em;
             strong {
-                padding-left: 2em;
+                padding-left: 1.3em;
                 font-weight: bold;
             }
-            &::before {
-                content: "";
-                line-height: 15px;
-                position: absolute;
-                margin-top: -0.2em;
-                @include _mootor-sprite(mod-story-user);
-            }      
+            @include icon(mod-story-user);
         }      
 
         .comments {
-            font-weight: bold;
             span {
-                padding-left: 2em;
+                font-weight: bold;
+                padding-left: 1.3em;
             }
-            &::before {
-                content: "";
-                left: 1em;
-                line-height: 15px;
-                position: absolute;
-                margin-top: -0.2em;
-                @include _mootor-sprite(mod-story-comments);
-            }            
+            @include icon(mod-story-comments);
+         
         }
     }
     

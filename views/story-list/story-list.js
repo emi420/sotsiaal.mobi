@@ -22,8 +22,6 @@
         },
         
         onLoad: function() {
-            nav.header.navLinks.create.show();
-            nav.header.navLinks.next.hide();
             app.data.get("inspections").sort(app.models.sort);
         },
         

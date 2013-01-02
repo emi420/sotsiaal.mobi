@@ -1,6 +1,6 @@
 .mod-topbar {
     
-    padding-bottom: .9em;
+    padding-bottom: .8em;
     overflow: hidden;
     width: 100%;
     
@@ -46,6 +46,7 @@
         background: rgba(0,0,0,.05);
         font-weight: 900;
         border-radius: 2em;
+        box-shadow: #fff 1px 1px, rgba(0,0,0,.1) -1px -1px 0;
     }
 
     @if $context == ios {

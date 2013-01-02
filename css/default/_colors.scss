@@ -7,7 +7,7 @@
 $color-main-darkbg: #fff;
 $color-main: #10155E;
 $color-accent: #EE3124;
-$light-neutral: #A2A2A2;
+$light-neutral: #c2c2c2;
 $dark-neutral: #181A1B;
 
 
@@ -33,7 +33,7 @@ $color-text-accent: $color-accent;
 
 // Borders
 
-$color-border-main: $dark-neutral;
+$color-border-main: $light-neutral;
 $color-border-alt: $light-neutral;
 $color-border-action: darken($color-main, 10%);
 $color-border-accent: darken($color-accent, 20%);

@@ -10,6 +10,7 @@
            viewDiv,
            views,
            viewId,
+           navLinkName,
            appId = "main",
            i;
            
@@ -43,7 +44,11 @@
         * Navigation init
         */        
        nav = $mainDiv.nav();             
-       nav.header.navLinks = $(nav.header.el).find(".moo-nav");      
+       nav.header.navLinks = $(nav.header.el).find(".moo-nav");
+       for (i = nav.header.navLinks.length;i--;) {
+            navLinkName = nav.header.navLinks[i].id;
+            nav.header.navLinks[navLinkName] = nav.header.navLinks[i];           
+       }      
 
        /*
         * Create App

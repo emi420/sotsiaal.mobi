@@ -33,7 +33,7 @@
                     
                     for (i = 0; i < 5; i++) {
                         story = app.models.Story.create({
-                            title: "This is my story " + i,
+                            title: "This is my story, my story number " + i,
                             pop: 0,
                             date: "2d",
                             comments: 2,

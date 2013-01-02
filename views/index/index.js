@@ -25,6 +25,7 @@
         },
         
         onLoad: function() {
+            $(nav.header.navLinks.navSearch).show();
             app.modStoryList.onLoadView();
         },
                     
