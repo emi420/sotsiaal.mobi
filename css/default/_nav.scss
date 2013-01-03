@@ -10,6 +10,10 @@
 h1 {
     color: $color-main-darkbg;
     font-weight: 100;
+    left: 15%;
+    width: 60% !important;
+    z-index: 9998;
+    position: absolute;
 }
 
 // Navigation buttons
@@ -40,6 +44,11 @@ h1 {
             margin: .4em 0;
         }   
         @include _mootor-sprite("nav-header-search");
+
+        &.moo-hover {
+            @include _mootor-sprite("nav-header-search-hover");
+        }
+
     }
 }
 
@@ -47,19 +56,23 @@ h1 {
     right: 0;
     border-left: 1px solid rgba(255,255,255,.2);
     box-shadow: -1px 0 1px rgba(0,0,0,.2) ;
-    padding: 0 1em 0 0 !important;
+    padding: 0 .7em 0 0 !important;
     span {
         @media screen and ( $media-query-0 ) {
-            margin: .75em 0 0 .9em;
+            margin: .25em 0 0 .5em;
         }
         @media screen and ( $media-query-1 ) {
-            margin: .85em 0 0 .9em;
+            margin: .35em 0 0 .5em;
         }    
         @media screen and ( $media-query-2 ) {
-            margin: .95em 0 0 .9em;
+            margin: .45em 0 0 .5em;
         }   
         
         @include _mootor-sprite("nav-header-create");
+        
+        &.moo-hover {
+            @include _mootor-sprite("nav-header-create-hover");
+        }
     }
 }
 

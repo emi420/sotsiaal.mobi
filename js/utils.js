@@ -30,7 +30,20 @@
                });
            }
        }
-       
+       ko.bindingHandlers.tapHover = {
+           init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+               $(element).onTapStart(function() {
+                    $(element).setClass("moo-hover");
+               });
+               $(element).onTapEnd(function() {
+                    $(element).removeClass("moo-hover");
+               });
+               $(element).onDragEnd(function() {
+                    $(element).removeClass("moo-hover");
+               });
+           }
+       }
+              
        // UI 
        ko.bindingHandlers.mootorValue = {
             update: function(element, valueAccessor, allBindingsAccessor) {
