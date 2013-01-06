@@ -1,5 +1,34 @@
 @import "mootor.ui.lists";
 
+@mixin pop($view-name: "") {
+
+        @if $view-name == "story" {
+            top: 2em;
+            right: .65em;
+            font-size: 3em;
+            @include style-inset;
+            padding: 0.7em 0.4em;
+            font-weight: 500;
+            color: #aaa;
+        } @else {
+            font-weight: 100;
+            color: $color-text-main;
+            top: .65em;
+            right: .65em;            
+            font-size: 2em;
+            padding: 0.6em 0.4em;
+        }
+
+        text-align: center;
+        background: #f8f8f8;
+        border-radius: 10em;
+        display: block;
+        width: 2.5em;
+        height: 2.5em;
+        letter-spacing: -2pt;
+        position: absolute;         
+}
+
 @mixin icon($icon-name) {
     &::before {
         content: "";
@@ -89,4 +118,39 @@
     }
 }
 
+.story-wrapper {
+    @include style-box("story");
 
+    .user {
+        float: left;
+        font-size: 2.3em;
+        color: #bbb;
+        margin: .3em;
+        span {
+            font-weight: 900;
+            line-height: 3em;
+            letter-spacing: -1pt; 
+            padding-top: 1em;
+            &:first-child {
+                padding-left: 1.5em;
+            }
+        } 
+        .category {
+            font-weight: 200;
+        }
+    }
+    
+    .story-content {
+        clear: both;
+        .picture img {
+            margin: 1em 0;
+            width: 100%;
+        }
+        .description {
+            width: 98%;
+            margin: 0;
+            @include style-font-readeable;            
+        }
+    }
+
+}

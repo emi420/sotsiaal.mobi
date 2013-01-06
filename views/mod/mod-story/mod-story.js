@@ -20,9 +20,8 @@
 
                 if (storyList.length < 2) {                
                     user = app.models.User.create({
-                        username: "emi420",
-                        email: "emi420@gmail.com",
-                        picture: "img/default/_temp/avatar.png"
+                        nickname: "emi420",
+                        avatar: "img/tmp/avatar.jpg"
                     });
                     user.save();
 
@@ -36,8 +35,9 @@
                             title: "This is my story, my story number " + i,
                             pop: 0,
                             date: "2d",
+                            picture: "img/tmp/story.jpg",
                             comments: 2,
-                            description: "Lorem ipsum dolor amet, yes.",
+                            description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
                             user: user,
                             category: category,
                         });

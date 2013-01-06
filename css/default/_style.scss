@@ -1,0 +1,19 @@
+$default-space: 1.5em;
+$default-border-radius: .5em;
+
+@mixin style-inset() {
+        background: rgba(0,0,0,.05);
+        box-shadow: #fff 1px 1px, rgba(0,0,0,.1) -1px -1px 0;
+}
+
+@mixin style-box($view: "") {
+    background: #fff;
+    padding: 1em;
+    border-radius: $default-border-radius;
+}
+
+@mixin style-font-readeable() {
+    font-family: Georgia;
+    font-size: 2em;
+    line-height: 160%;
+}

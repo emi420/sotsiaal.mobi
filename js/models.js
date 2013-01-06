@@ -70,8 +70,8 @@
        User = function(options) {
        
            this.id =        options.id;
-           this.username =  options.username;           
-           this.email =     options.email;           
+           this.nickname =  options.nickname;           
+           this.avatar =     options.avatar;           
   
            return this;
        }; 
