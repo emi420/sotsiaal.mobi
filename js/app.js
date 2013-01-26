@@ -14,8 +14,6 @@
            appId = "main",
            i;
            
-       console.log("Ready! making app...");
-            
        /*
         * Views
         */
