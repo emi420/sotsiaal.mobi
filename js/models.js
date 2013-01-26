@@ -92,6 +92,8 @@
            this.type =      options.type;
            this.video =     options.video;
            this.map =       options.map;
+           this.date =      options.date;
+           this.pop =       options.pop;
            this.picture =   options.picture;
   
            return this;

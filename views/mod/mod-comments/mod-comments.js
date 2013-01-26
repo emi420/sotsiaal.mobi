@@ -7,8 +7,6 @@
         storyComment = {},
         $storyModComments;
         
-    console.log("mod-comments load");
-
     modComments = {
 
         init: function() {      
@@ -20,7 +18,6 @@
                  {"storyComment": storyComment},
                  $storyModComments[0]
             );
-            console.log($storyModComments[0]);
         },
         
         bindData: function() {
@@ -35,6 +32,7 @@
             storyComment.removeAll();
             
             for (i = 0; i < newStoryComment.length; i++) {
+                newStoryComment[i].user = app.models.User.get(newStoryComment[i].user);
                 storyComment.push(newStoryComment[i]);
             }
 

@@ -5,6 +5,31 @@
     %span{:"data-bind"=>"if: storyComment().length > 1"}
         comments
 
+.mod-comments.mod-comments-writehere
+    %ul
+        %li
+            .mod-comment-avatar
+                %span.user-avatar
+                    %img{:src=>"img/tmp/avatar.jpg"} 
+            .mod-comments-comment
+                %span.mod-comments-text
+                    Write here ...
+                
 .mod-comments{:"data-bind"=>"foreach: storyComment"}
-    .mod-comment
-    %p{:"data-bind"=>"text: text"}
+    %ul
+        %li
+            .mod-comment-avatar
+                %span.user-avatar
+                    %img{:"data-bind"=>"attr: {src: user.avatar}"} 
+            .mod-comments-comment
+                %span.mod-comments-text{:"data-bind"=>"text: text"}
+                .mod-comments-details
+                    %span.mod-comments-pop-sign{:"data-bind"=>"if: parseInt(pop) < 0"}
+                        -
+                    %span.mod-comments-pop-sign{:"data-bind"=>"if: parseInt(pop) > -1"}
+                        +
+                    %span.mod-comments-pop{:"data-bind"=>"text: pop"}
+                    / 
+                    %span.mod-comments-user{:"data-bind"=>"text: user.nickname"}
+                    %span.mod-comments-date{:"data-bind"=>"text: date"}
+                

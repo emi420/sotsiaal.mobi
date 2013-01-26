@@ -101,11 +101,7 @@
                  
             },
         };
-        
-       /*
-        * Navigation controllers
-        */
-        
+                
     });
     
 }(window.Mootor))

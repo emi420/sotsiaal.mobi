@@ -47,6 +47,8 @@
                     comment = app.models.Comment.create({
                         text: "This is a comment",
                         user: user,
+                        date: "2h ago",
+                        pop: "14",
                         story: story
                     });
                     comment.save();
@@ -73,7 +75,14 @@
             var story = app.data.set(
                 "story", 
                 app.models.Story.all()
-            );
+            ),
+            i;
+            
+            for (i = story.length; i--;) {
+                story[i].commentsCount = app.models.Comment.filter({
+                    story: story[i]
+                }).length;
+            }
             
             $.extend({
                 showEmptyMsg:function() {
