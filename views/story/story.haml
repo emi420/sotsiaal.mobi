@@ -1,24 +1,27 @@
 .story-view
- 
-    %h2.title{:"data-bind"=>"text: story.title"}
-    
-    .pop{:"data-bind"=>"text: story.pop"}
-    
-    .story-wrapper
-        .user
-            %span.user-avatar
-                %img{:"data-bind"=>"attr: {src: story.user.avatar}"} 
-            %span.user-nickname{:"data-bind"=>"text: story.user.nickname"}
-            to
-            %span.category{:"data-bind"=>"text: story.category.title"}
-            ,
-            %span.data{:"data-bind"=>"text: story.date"}
-            ago
+
+    #story-mod
+     
+        %h2.title{:"data-bind"=>"text: story.title"}
         
-        .story-content
-            .picture
-                %img{:"data-bind"=>"attr: {src: story.picture}"} 
+        .pop{:"data-bind"=>"text: story.pop"}
+        
+        .story-wrapper
+            .user
+                %span.user-avatar
+                    %img{:"data-bind"=>"attr: {src: story.user.avatar}"} 
+                %span.user-nickname{:"data-bind"=>"text: story.user.nickname"}
+                to
+                %span.category{:"data-bind"=>"text: story.category.title"}
+                ,
+                %span.data{:"data-bind"=>"text: story.date"}
+                ago
             
-            %p.description{:"data-bind"=>"text: story.description"} 
-    
-    #story-comments
+            .story-content
+                .picture
+                    %img{:"data-bind"=>"attr: {src: story.picture}"} 
+                
+                %p.description{:"data-bind"=>"text: story.description"} 
+        
+
+    #story-mod-comments

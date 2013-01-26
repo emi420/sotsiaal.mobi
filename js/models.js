@@ -24,10 +24,9 @@
            this.pop =           options.pop;           
            this.order =         options.order;           
            this.date =          options.date;
-           this.comments =      options.comments;
+           this.commentsCount = options.commentsCount;
            this.picture =       options.picture;
            this.description =   options.description;
-
            this.user =          options.user;
            this.category =      options.category;
   
@@ -81,7 +80,29 @@
             localStoragePrefix: "sotsiaal-user"
        });
        
-              
+       // Comment
+       
+       Comment = function(options) {
+       
+           this.id =        options.id;
+           this.text =      options.text;           
+           this.user =      options.user;           
+           this.parent =    options.parent;
+           this.story =     options.story;
+           this.type =      options.type;
+           this.video =     options.video;
+           this.map =       options.map;
+           this.picture =   options.picture;
+  
+           return this;
+       }; 
+       
+       app.models.Comment = app.Model({ 
+            model: Comment, 
+            localStoragePrefix: "sotsiaal-comment"
+       });
+       
+                     
        /*
         * View model & data binding
         */        

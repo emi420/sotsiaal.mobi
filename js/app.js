@@ -109,25 +109,21 @@
         /*
          * Modules
          */
-         
-         
-       $.extend({
-            modStoryList: {},
-            modTopbar: {},
-       }, $);
        
        // FIXME CHECK
-       var loadModules = function(callback) {
+       var loadModules = function() {
         
-            $._modContinue = callback;
-            
             var i,
                 modules,
+                callback,
                 loadModule;
             
             modules = [
                 {
                     name: "mod-topbar",
+                },
+                {
+                    name: "mod-comments",
                 },
                 {
                     name: "mod-story-list",
@@ -141,9 +137,9 @@
             
             loadModule = function(module) {
             
-                if (module.js !== false) {
-                    callback = function() {
-                        $.require("views/mod/" +  module.name + "/" + module.name + ".js")
+                callback = function(module) {
+                    if (module.name !== undefined && module.js !== false) {
+                        $.require("views/mod/" +  module.name + "/" + module.name  + ".js")
                     }
                 }
  
@@ -155,12 +151,12 @@
                                 $[module.name] = {};
                             }
                             $[module.name].html = response;
-                            callback();
+                            callback(module);
                         }
                     });
                     
                 } else {
-                    callback();
+                    callback(module);
                 }
  
             }
@@ -172,14 +168,12 @@
 
         }
         
-        loadModules(function() {
-        
-           // Preload all views
-           for (i = views.length; i--;) {
-               app.preload(views[i]);   
-           }
+        // Preload all views
+        for (i = views.length; i--;) {
+           app.preload(views[i]);   
+        }
 
-        });
+        loadModules();
 
 
    });

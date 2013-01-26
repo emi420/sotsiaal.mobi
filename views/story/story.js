@@ -2,26 +2,26 @@
 
     var nav = $("#main").nav(),
         app = $("main").app(),
-        view = {},
-        navItemName = "story",
-        navItem = nav.get(navItemName);
+        view = nav.get("story"),
+        $storyMod = $("#story-mod"),
+        $storyModComments = $("#story-mod-comments"),
+        $navSearch = $(nav.header.navLinks.navSearch);
+        
     
-    view = {
+    $.extend({
         
         init: function() {
             // Set onLoad callbacks
-            navItem.onLoad = view.onLoad;
+            $storyModComments.html($["mod-comments"].html);
         },
         
         onLoad: function() {
-             $(nav.header.navLinks.navSearch).hide();
-             app.modStory.bindData($("#story")[0]);
-        },
-        
-        handlers: {
+            $navSearch.hide();            
+            app.modStory.bindData($storyMod[0]);
+            app.modComments.bindData();
         },
                     
-    }
+    }, view);
     
     // Initialize view
     view.init()

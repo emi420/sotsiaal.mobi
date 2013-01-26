@@ -1,0 +1,10 @@
+%h3.title-comments
+    %span.title-comments-count{:"data-bind"=>"text: storyComment().length"}
+    %span{:"data-bind"=>"if: storyComment().length < 2"}
+        comment
+    %span{:"data-bind"=>"if: storyComment().length > 1"}
+        comments
+
+.mod-comments{:"data-bind"=>"foreach: storyComment"}
+    .mod-comment
+    %p{:"data-bind"=>"text: text"}
