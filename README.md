@@ -10,8 +10,6 @@ $ git checkout experimental
 
 Also, you will need the following tools:
 
-Required:
-
 * Haml for compile .haml templates
 * Ruby & Compass Framework for compile .scss stylesheets
 
