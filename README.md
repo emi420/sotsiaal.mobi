@@ -4,9 +4,9 @@
 
 Clone Mootor HTML5 framework and checkout the 'experimental' branch:
 
-$ git clone https://github.com/emi420/Mootor.git mootor
-$ cd mootor
-$ git checkout experimental
+* $ git clone https://github.com/emi420/Mootor.git mootor
+* $ cd mootor
+* $ git checkout experimental
 
 Also, you will need the following tools:
 

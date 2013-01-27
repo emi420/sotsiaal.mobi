@@ -4,7 +4,8 @@
 
     var app = $("main").app(),
         modStoryList,
-        modStory;
+        modStory,
+        story;
 
     modStoryList = {
         
@@ -72,12 +73,15 @@
          * Bind data
          */         
         bindData: function(element) {
-            var story = app.data.set(
-                "story", 
-                app.models.Story.all()
-            ),
-            i;
-            
+            // TODO: refactoring of models to support callbacks
+            app.models.Story.all({
+                callback: view.showStoryList
+            });
+        },
+        
+        showStoryList: function(story) {
+            var i;
+
             for (i = story.length; i--;) {
                 story[i].commentsCount = app.models.Comment.filter({
                     story: story[i]
@@ -108,8 +112,8 @@
                     go: modStoryList.handlers.go,
                  }
             );
- 
-        },
+            
+        }
                     
     }
     
