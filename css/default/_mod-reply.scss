@@ -26,19 +26,9 @@
 @include mod-reply();
 
 .mod-reply-options-picture > a {
-     text-indent: -9999px;
-     @include _mootor-sprite("mod-reply-options-picture");
-     display: block;
-     background-repeat: no-repeat;
-     width: 32px;
-     height: 32px;
-     position: absolute;
-     left: 10px;
-     margin-top: 8px;
-     opacity: .4;
-     &.mod-reply-options-picture-active {
-         opacity: .75;
-     }
+    @include icon-picture();
+    margin-top: 8px;
+    left: 10px;
 }
 
 

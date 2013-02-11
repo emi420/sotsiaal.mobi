@@ -37,7 +37,6 @@
         },
         
         focus: function() {
-              // FIXME CHECK
               this.$textarea[0].focus();
         },
         

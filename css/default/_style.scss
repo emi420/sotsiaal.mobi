@@ -17,3 +17,49 @@ $default-border-radius: .5em;
     font-size: 2em;
     line-height: 160%;
 }
+
+@mixin default-box(
+    $has-image:             false, 
+    $rounded:               true, 
+    $color-bg:              #f0f0f0, 
+    $border-top:            #f5f5f5, 
+    $border-bottom:         #DDD, 
+    $color-bg-rounded:      #FFF, 
+    $color-border-rounded:  #CCC,
+    $shadows:               true
+    
+) {
+    
+    margin: 1.5em;
+    padding: 1.5em;
+    
+    @if $rounded {
+        background-color: $color-bg-rounded;
+        border: 1px solid $color-border-rounded;
+        @include border-radius(7px);
+    }
+    
+    @if $shadows {
+        border: 0;
+        background: -webkit-linear-gradient(white 85%, #f1f1f1 120%);
+        box-shadow: #bbb 3px 2px 3px -2px, #eee -2px -1px 1px 0px;
+        
+        &.moo-hover {
+            opacity: .7;
+            background: #fff;
+        }        
+    }
+}
+
+@mixin icon-picture {
+     text-indent: -9999px;
+     @include _mootor-sprite("mod-reply-options-picture");
+     display: block;
+     width: 32px;
+     height: 32px;
+     position: absolute;
+     opacity: .4;
+     &.mod-reply-options-picture-active {
+         opacity: .75;
+     }
+}

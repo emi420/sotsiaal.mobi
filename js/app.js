@@ -20,11 +20,11 @@
         
        views = [
             "story",
+            "story-create",
             "index",                
        ]
 
        /*
-       "story-create",
        "story-list",
        "user",
        "user-edit",
@@ -182,8 +182,7 @@
         }
 
         loadModules();
-
-
+        
    });
    
 }(Mootor));
