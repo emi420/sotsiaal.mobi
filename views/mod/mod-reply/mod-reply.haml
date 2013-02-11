@@ -7,17 +7,18 @@
     .mod-reply-textarea
         %textarea#mod-reply-textarea
         
-    //.mod-modal-footer
-    //
-    //    %ul.mod-reply-msgoptions
-    //        %li.mod-reply-options-video
-    //            %a{:href=>"#mod-reply-video"}
-    //        %li.mod-reply-options-picture
-    //            %a{:href=>"#mod-reply-picture"}
-    //        %li.mod-reply-options-geo
-    //            %a{:href=>"#mod-reply-geo"}
-    //
-    //    %ul.mod-reply-info                
-    //        %li.mod-reply-info-video
-    //            %span 1 attach
+    .mod-modal-footer
+    
+        %ul.mod-reply-msgoptions
+            //%li.mod-reply-options-video
+            //    %a{:href=>"#mod-reply-video"}
+            %li.mod-reply-options-picture
+                %a#mod-reply-picture{:href=>"#mod-reply-picture"}
+                    %span Agregar imagen
+            // %li.mod-reply-options-geo
+            //    %a{:href=>"#mod-reply-geo"}
+    
+        // %ul.mod-reply-info                
+        //    %li.mod-reply-info#mod-reply-info
+        //        %span 1 attach
                 

@@ -21,10 +21,11 @@
         
         send: function() {
             var comment = app.models.Comment.create({
-                text:   this.$textarea[0].value,
-                user:   app.data.get("currentUser"),
-                story:  app.data.get("currentStory"),
-                type:   "text"
+                text:    this.$textarea[0].value,
+                picture: this.picture,
+                user:    app.data.get("currentUser"),
+                story:   app.data.get("currentStory"),
+                type:    ""
             });
             comment.save();
             this._delayedSuccess = true;
@@ -60,7 +61,20 @@
             reply.onSend();     
         });
     });
-    
+
+    /*
+     * Reply w/ picture
+     */
+
+    var camera = $("#mod-reply-picture").ui({
+        type: "Camera"
+    });    
+    camera.onSuccess(function(imageURI) {
+        $(this.input).setClass("mod-reply-options-picture-active");
+        this.hide();
+        reply.picture = imageURI;
+    });
+        
     // FIXME CHECK: set temporary sample user
     app.data.set("currentUser", app.models.User.get(1));
 

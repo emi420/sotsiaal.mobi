@@ -23,6 +23,8 @@
                     %img{:"data-bind"=>"attr: {src: user.avatar}"} 
             .mod-comments-comment
                 %span.mod-comments-text{:"data-bind"=>"text: text"}
+                %span.mod-comments-picture
+                    %img{:"data-bind"=>"attr: {src: picture}"}
                 .mod-comments-details
                     %span.mod-comments-pop-sign{:"data-bind"=>"if: parseInt(pop) < 0"}
                         -
