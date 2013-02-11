@@ -3,48 +3,51 @@
     "use strict";
     
     var app = $("main").app(),
+        ModComments,
         modComments,
         storyComment = {},
         $storyModComments;
         
-    modComments = {
-
-        init: function() {      
-
-            $storyModComments = $("#story-mod-comments");
-
-            storyComment = app.models.observableArray([]);
-            app.models.bind(
-                 {"storyComment": storyComment},
-                 $storyModComments[0]
-            );
-        },
-        
+    var ModComments = function() {
+        $storyModComments = $("#story-mod-comments");
+        storyComment = app.models.observableArray([]);
+        app.models.bind(
+             {"storyComment": storyComment},
+             $storyModComments[0]
+        );        
+        ModComments.setTouchEvents(this);
+        return this;
+    }
+    
+    ModComments.prototype = {
+    
         bindData: function() {
-
-            var newStoryComment,
-                i;
-
             app.models.Comment.filter(
                 {story: app.data.get("currentStory")}
-            ).success(function(result) {
-                newStoryComment = result;
-                storyComment.removeAll();
-                
-                for (i = 0; i < newStoryComment.length; i++) {
-                    newStoryComment[i].user = app.models.User.get(newStoryComment[i].user);
-                    storyComment.push(newStoryComment[i]);
+            ).success(            
+                function(comments) {
+                    var i;
+                    storyComment.removeAll();
+                    for (i = 0; i < comments.length; i++) {
+                        comments[i].user = app.models.User.get(comments[i].user);
+                        storyComment.push(comments[i]);
+                    }
                 }
-
-                
-            });            
-
-
-        }
-        
-    };
+            );            
+        },    
+    }
     
-    modComments.init();
+    $.extend({
+
+        setTouchEvents: function(self) {
+            $("#mod-comments-writehere").onTapEnd(function() {
+                app.modReply.modal.show();
+            });
+        },
+                    
+    }, ModComments);
+            
+    modComments = new ModComments();
 
     // Public modules
     $.extend({modComments: modComments}, app);    

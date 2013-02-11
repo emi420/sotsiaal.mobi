@@ -131,6 +131,13 @@
                     name: "mod-story",
                     html: false
                 },
+                {
+                    name: "mod-modal",
+                    html: false
+                },
+                {
+                    name: "mod-reply"
+                },
             ]
             
             loadModule = function(module) {
