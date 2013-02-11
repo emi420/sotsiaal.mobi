@@ -20,10 +20,14 @@ h1 {
 
 .moo-nav-create,
 .moo-nav-search {
+    text-indent: -9999px;
+}
+
+.moo-nav-create,
+.moo-nav-search {
     @include headerHeight();
     position: absolute !important;
     top:0;
-    text-indent: -9999px;
     span {
         display: block;        
     }
@@ -73,6 +77,41 @@ h1 {
         &.moo-hover {
             @include _mootor-sprite("nav-header-create-hover");
         }
+    }
+}
+
+.moo-nav-post { 
+
+    @include headerHeight();
+    position: absolute !important;
+    top:0;
+    text-indent: 0 !important;
+    right: 0;
+    border-left: 1px solid rgba(255,255,255,.2);
+    box-shadow: -1px 0 1px rgba(0,0,0,.2) ;
+    padding: 0 .7em 0 0 !important;
+    span {
+        @media screen and ( $media-query-0 ) {
+            margin: .25em 0 0 .5em;
+        }
+        @media screen and ( $media-query-1 ) {
+            margin: .35em 0 0 .5em;
+        }    
+        @media screen and ( $media-query-2 ) {
+            margin: .45em 0 0 .5em;
+        }   
+        
+        @include _mootor-sprite("nav-header-create");
+        
+        &.moo-hover {
+            @include _mootor-sprite("nav-header-create-hover");
+        }
+
+        display: block;        
+        width: 92px !important;
+        padding-left: 39px;
+        padding-top: 7px;
+        text-transform: uppercase;
     }
 }
 
