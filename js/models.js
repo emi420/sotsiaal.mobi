@@ -37,18 +37,35 @@
             model: Story, 
             localStoragePrefix: "sotsiaal-story"
        });
+
+       /* 
+        * Custom methods
+        */
+        
+       // .all()
        
-       app.models.Story._get = app.models.Story.get;       
-       app.models.Story.get = function(index) {
-           var story;
-           story = this._get(index);
-           if (story) {
-              story.user = app.models.User.get(story.user);
-              story.category = app.models.Category.get(story.category);
-           }
-           return story;
-       }       
+       $.extend({
+            _all: app.models.Story.all,
+
+            all: function(options) {
+                var result;
+    
+                // TODO: Get from API
+                result = app.models.Story._all();
+                this._delayedSuccess = true;
+                this.cache = result;
+                return this;
+            },
+            
+            success: function(callback) {
+                this._success = callback;
+                if (this._delayedSuccess === true) {
+                    this._success(this.cache);
+                }          
+            }
        
+       }, app.models.Story)
+
        // Category
        
        Category = function(options) {
@@ -103,7 +120,28 @@
             model: Comment, 
             localStoragePrefix: "sotsiaal-comment"
        });
+      
+       $.extend({
+            _filter: app.models.Comment.filter,
+
+            filter: function(options) {
+                var result;
+    
+                // TODO: Get from API
+                result = app.models.Comment._filter(options);
+                this._delayedSuccess = true;
+                this.cache = result;
+                return this;
+            },
+            
+            success: function(callback) {
+                this._success = callback;
+                if (this._delayedSuccess === true) {
+                    this._success(this.cache);
+                }          
+            }
        
+       }, app.models.Comment)
                      
        /*
         * View model & data binding

@@ -11,7 +11,7 @@
         
         init: function() {
         
-            var storyList = app.models.Story.all(),
+            var storyList = app.models.Story._all(),
                 story,
                 user,
                 comment,
@@ -73,13 +73,15 @@
          * Bind data
          */         
         bindData: function(element) {
-            // TODO: refactoring of models to support callbacks
-            app.models.Story.all({
-                callback: view.showStoryList
-            });
+            var view = this;
+            app.models.Story.all().success(
+                function(result) {
+                    view.showStoryList(element, result);
+                }
+            );
         },
         
-        showStoryList: function(story) {
+        showStoryList: function(element, story) {
             var i;
 
             for (i = story.length; i--;) {

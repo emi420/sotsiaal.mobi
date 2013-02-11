@@ -25,16 +25,20 @@
             var newStoryComment,
                 i;
 
-            newStoryComment = app.models.Comment.filter(
+            app.models.Comment.filter(
                 {story: app.data.get("currentStory")}
-            );                
+            ).success(function(result) {
+                newStoryComment = result;
+                storyComment.removeAll();
+                
+                for (i = 0; i < newStoryComment.length; i++) {
+                    newStoryComment[i].user = app.models.User.get(newStoryComment[i].user);
+                    storyComment.push(newStoryComment[i]);
+                }
 
-            storyComment.removeAll();
-            
-            for (i = 0; i < newStoryComment.length; i++) {
-                newStoryComment[i].user = app.models.User.get(newStoryComment[i].user);
-                storyComment.push(newStoryComment[i]);
-            }
+                
+            });            
+
 
         }
         
