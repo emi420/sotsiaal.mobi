@@ -109,9 +109,9 @@
            this.type =      options.type;
            this.video =     options.video;
            this.map =       options.map;
-           this.date =      options.date;
-           this.pop =       options.pop;
-           this.picture =   options.picture;
+           this.date =      options.date || "a moment ago";
+           this.pop =       options.pop || 0;
+           this.picture =   options.picture || "";
   
            return this;
        }; 

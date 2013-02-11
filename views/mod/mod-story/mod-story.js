@@ -18,7 +18,7 @@
                 category,
                 i;
                 
-                // TMP: Create sample data
+                /*** SAMPLE DATA ***/
                 if (storyList.length < 2) {                
                     user = app.models.User.create({
                         nickname: "emi420",

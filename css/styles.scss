@@ -13,12 +13,15 @@ $context: ios;
 @import "default/nav";
 @import "default/text";
 @import "default/style";
+@import "default/ui";
 
 @import "default/mod-story";
 @import "default/mod-user";
 @import "default/mod-story-list";
 @import "default/mod-topbar";
 @import "default/mod-comments";
+@import "default/mod-modal";
+@import "default/mod-reply";
 
 @import "default/views.index";
 @import "default/views.story";
@@ -29,4 +32,8 @@ $context: ios;
 @import "mootor.default.text";
 
 
-
+// FIXME CHECK
+.moo-overlay {
+    opacity: .6;
+    background-color: #000 !important;
+}

@@ -1,0 +1,35 @@
+@mixin button(
+    $class: ".button",
+    $style: default
+) {
+    #{$class} {
+        @if $style == "default" {
+            line-height: 1.2em;
+            font-size: 1.8em;
+            font-weight: bold;
+            border: 1px solid #999;
+            padding: .4em .7em;
+            border-radius: .3em;
+        }
+        @if $style == "action" {
+            color: #fff;
+            @include background(linear-gradient(#333,#000));            
+        }
+        @if $style == "cancel" {
+            color: #000;
+            @include background(linear-gradient(#f8f8f8,#f1f1f1));            
+        }
+
+    }
+}
+
+@include button();
+@include button(
+    $class: ".button-cancel",
+    $style: "cancel"
+);
+@include button(
+    $class: ".button-action",
+    $style: "action"
+);
+

@@ -142,7 +142,7 @@
             
             loadModule = function(module) {
             
-                callback = function(module) {
+                var loadJs = function(module) {
                     if (module.name !== undefined && module.js !== false) {
                         $.require("views/mod/" +  module.name + "/" + module.name  + ".js")
                     }
@@ -156,12 +156,15 @@
                                 $[module.name] = {};
                             }
                             $[module.name].html = response;
-                            callback(module);
+                            // FIXME CHECK
+                            window.setTimeout(function() {
+                                loadJs(module);                        
+                            }, 5);
                         }
                     });
                     
                 } else {
-                    callback(module);
+                    loadJs(module);
                 }
  
             }

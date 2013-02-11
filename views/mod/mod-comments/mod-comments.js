@@ -5,9 +5,14 @@
     var app = $("main").app(),
         ModComments,
         modComments,
+        modReply = {},
         storyComment = {},
         $storyModComments;
-        
+
+    /*
+     * ModComments
+     */
+             
     var ModComments = function() {
         $storyModComments = $("#story-mod-comments");
         storyComment = app.models.observableArray([]);
@@ -15,7 +20,7 @@
              {"storyComment": storyComment},
              $storyModComments[0]
         );        
-        ModComments.setTouchEvents(this);
+        modReply.init(this);
         return this;
     }
     
@@ -37,19 +42,32 @@
         },    
     }
     
+    /*
+     * modReply connector
+     */
     $.extend({
 
-        setTouchEvents: function(self) {
+        init: function(self) {
             $("#mod-comments-writehere").onTapEnd(function() {
+                if (app.modReply.onSend === undefined) {
+                    app.modReply.onSend = function() {
+                        app.modComments.bindData();
+                    }
+                }
+                app.modReply.clear();
                 app.modReply.modal.show();
+                app.modReply.focus();
             });
         },
                     
-    }, ModComments);
-            
-    modComments = new ModComments();
+    }, modReply);
 
-    // Public modules
+    /*
+     * Initialize module
+     */
+    modComments = new ModComments();
+    // Go public
     $.extend({modComments: modComments}, app);    
+
 
 }(Mootor));
