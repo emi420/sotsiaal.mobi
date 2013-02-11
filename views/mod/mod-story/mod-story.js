@@ -88,6 +88,7 @@
                 story[i].commentsCount = app.models.Comment.filter({
                     story: story[i]
                 }).length;
+                story[i].user = app.models.User.get(story[i].user);
             }
             
             $.extend({
