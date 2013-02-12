@@ -75,7 +75,7 @@
     })
     
     $nav.onDragMove(function(gesture) {
-        var maxdist = $.view.clientW/2,
+        var maxdist = $.view.clientW/1.3,
             x;
         
         if (navCurrent().movable === false) {

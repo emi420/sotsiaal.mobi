@@ -86,11 +86,21 @@
                 app.go("story");
             },
         },
+        
+        loadForeign: function(data) {
+            data.commentsCount = app.models.Comment.filter({
+                story: data
+            }).length;
+            data.category = app.models.Category.get(data.category);
+            data.user = app.models.User.get(data.user);            
+            return data;
+        },
 
         updateBindings: function(data) {
             var i;
             storyList.removeAll();
             for (i = 0 ; i < data.length; i++) {
+                data = this.loadForeign(data);
                 storyList.push(data[i]);
             }
         },        
@@ -111,19 +121,11 @@
                 view.showStoryList(element, data);                
             }  
         },
-        
-        updateStoryListView: function(data) {
-            console.log("ok");
-        },
-        
+                
         showStoryList: function(element, data) {
             var i;
             for (i = data.length; i--;) {
-                data[i].commentsCount = app.models.Comment.filter({
-                    story: data[i]
-                }).length;
-                data[i].category = app.models.Category.get(data[i].category);
-                data[i].user = app.models.User.get(data[i].user);
+                data = this.loadForeign(data);
             }
 
             // FIXME CHECK
