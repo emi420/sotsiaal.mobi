@@ -121,10 +121,14 @@ h1 {
  */   
 
 @if $context == ios {
-    .moo-panels {
+    body {
         background: #333 url(../img/default/nav-panels-panels.png); 
     }
     
+    .moo-panels {
+        background: transparent;
+    }
+
     .moo-panel  {
         background: #fff url(../img/default/nav-panels-panel.png); 
     }
