@@ -1,0 +1,40 @@
+ 
+@import "compass/css3";
+@import "compass/utilities";
+@import "mootor.sprites";
+
+// Default theme
+
+$dark-theme: true;
+//$context: ios;
+$context: android;
+
+@import "default/color"; 
+@import "default/nav";
+@import "default/text";
+@import "default/style";
+@import "default/ui";
+
+@import "default/mod-story";
+@import "default/mod-user";
+@import "default/mod-story-list";
+@import "default/mod-topbar";
+@import "default/mod-comments";
+@import "default/mod-modal";
+@import "default/mod-reply";
+@import "default/mod-story-create";
+
+@import "default/views.index";
+@import "default/views.story";
+
+@import "mootor.utilities";
+@import "mootor.ui";
+@import "mootor.default.normalize";
+@import "mootor.default.text";
+
+
+// FIXME CHECK
+.moo-overlay {
+    opacity: .6;
+    background-color: #000 !important;
+}
