@@ -13,7 +13,7 @@ Also, you will need the following tools:
 * Haml for compile .haml templates
 * Ruby & Compass Framework for compile .scss stylesheets
 
-For testing, you can use Chrome (with emulate touch events) or a mobile device with a webkit-based browser.
+For testing, you can use Chrome, Safari, Firefox or a mobile device with a Webkit-based browser (we're working on that, Mozilla)
 
 # How can I help?
 
