@@ -138,6 +138,9 @@
                 {
                     name: "mod-reply"
                 },
+                {
+                    name: "mod-login"
+                },
             ]
             
             loadModule = function(module) {

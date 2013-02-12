@@ -23,14 +23,26 @@
         
         onLoad: function() {
             
-            // TODO
+            // TODO: categories
             var category = app.models.Category.get(1);
-
-            currentUser = app.data.get("currentUser");
-                
-            $(nav.header.navLinks.navSearch).hide();
-            $(nav.header.navLinks.navCreate).hide();
-            $(nav.header.navLinks.navPost).show();  
+            
+            currentUser = app.models.User.getCurrent();
+            if (currentUser === undefined) {
+                app.modLogin.modal.show();
+                app.modLogin.focus();
+                if (app.modLogin.onSend === undefined) {
+                    app.modLogin.onSend = function(result) {
+                        if (result === true) {
+                            app.go("story-create");                         
+                        } else {
+                            alert("Invalid login");
+                        }
+                    }
+                }
+                return false;
+            }
+            
+            view.updateHeader();
 
             story = app.models.Story.create({
                 title:          "",
@@ -42,6 +54,12 @@
                 category:       category
             });
         },
+        
+        updateHeader: function() {
+            $(nav.header.navLinks.navSearch).hide();
+            $(nav.header.navLinks.navCreate).hide();
+            $(nav.header.navLinks.navPost).show();              
+        }
                     
     }
     

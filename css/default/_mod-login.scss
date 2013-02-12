@@ -1,0 +1,36 @@
+@mixin mod-login-input {
+    width: 100%;
+    height: 50px;
+    font-size: 2.5em;
+    font-weight: bold;
+    padding: 1.2em 0.75em;        
+    border-style: solid;
+    border-color: #ddd;
+    &:first-child {
+        border-bottom: 1px;
+        border-radius: .5em .5em 0 0;
+    }
+    &:last-child {
+        border-radius: 0 0 .5em .5em;
+    }
+}
+
+
+@mixin mod-login(
+    $class: ".mod-login-form"
+){
+    #{$class} {
+        width: 100%;
+        height: 200px;
+        border: none;
+        line-height: 0;
+        padding: 1em;
+        
+        input {
+            @include mod-login-input;
+        }
+    }
+}
+
+@include mod-login();
+

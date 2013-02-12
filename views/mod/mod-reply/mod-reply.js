@@ -23,7 +23,7 @@
             var comment = app.models.Comment.create({
                 text:    this.$textarea[0].value,
                 picture: this.picture,
-                user:    app.data.get("currentUser"),
+                user:    app.models.User.getCurrent(),
                 story:   app.data.get("currentStory"),
                 type:    ""
             });
@@ -75,9 +75,6 @@
         reply.picture = imageURI;
     });
         
-    // FIXME CHECK: set temporary sample user
-    app.data.set("currentUser", app.models.User.get(1));
-
     $("#mod-reply-textarea").ui({type:"TextArea"});
 
     // Public modules

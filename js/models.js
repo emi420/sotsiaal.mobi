@@ -87,7 +87,7 @@
        
            this.id =        options.id;
            this.nickname =  options.nickname;           
-           this.avatar =     options.avatar;           
+           this.avatar =    options.avatar;           
   
            return this;
        }; 
@@ -96,6 +96,20 @@
             model: User, 
             localStoragePrefix: "sotsiaal-user"
        });
+       
+       $.extend({
+            getCurrent: function() {
+                return app.data.get("currentUser");
+            },
+            auth: function(options) {
+                // TODO: API
+                app.data.set("currentUser", app.models.User.get(1));
+                return true;
+            },
+            logout: function() {
+                app.data.unset("currentUser");
+            }
+       }, app.models.User);
        
        // Comment
        
