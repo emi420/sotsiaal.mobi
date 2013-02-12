@@ -126,6 +126,7 @@
                 {name: "mod-login"},
                 {name: "mod-signup"},
                 {name: "mod-sidebar"},
+                {name: "mod-category", html: false},
             ]
             
             loadModule = function(module) {

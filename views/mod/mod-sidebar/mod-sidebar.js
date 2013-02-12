@@ -58,6 +58,9 @@
     
     $(navCurrent.el).onDragStart(function(gesture) {
 
+        // modCategory connector
+        app.modCategory.bindData($("#mod-sidebar-navbar-category"));
+
         if (gesture.distanceFromOriginX > 10 || gesture.distanceFromOriginX < -10) {
             sidebar.show();
             navCurrent.movable = false;
@@ -92,6 +95,16 @@
     $(navCurrent.el).onDragEnd(function(gesture) {
         navCurrent.movable = true;
     });
+    
+    $("#mod-sidebar-topbar-nav1").onTapEnd(function() {
+        $("#mod-sidebar-navbar-category").hide();    
+        $("#mod-sidebar-navbar-myaccount").show();   
+    });
 
+    $("#mod-sidebar-topbar-nav2").onTapEnd(function() {
+        $("#mod-sidebar-navbar-category").show();    
+        $("#mod-sidebar-navbar-myaccount").hide();    
+    });
+    
 
 }(Mootor));

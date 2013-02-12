@@ -80,6 +80,28 @@
             model: Category, 
             localStoragePrefix: "sotsiaal-category"
        });
+
+       $.extend({
+            _all: app.models.Category.all,
+
+            all: function(options) {
+                var result;
+    
+                // TODO: Get from API
+                result = app.models.Category._all();
+                this._delayedSuccess = true;
+                this.cache = result;
+                return this;
+            },
+            
+            success: function(callback) {
+                this._success = callback;
+                if (this._delayedSuccess === true) {
+                    this._success(this.cache);
+                }          
+            }
+       
+       }, app.models.Category)
        
        // User
        

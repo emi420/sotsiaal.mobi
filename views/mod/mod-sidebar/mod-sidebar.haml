@@ -1,15 +1,15 @@
 .mod-sidebar
     %ul.mod-sidebar-topbar
         %li
-            %a{:href=>"#published-stories"}
+            %a#mod-sidebar-topbar-nav1{:href=>"#topics"}
                 %span
                     Topics
         %li
-            %a{:href=>"#my-account"}
+            %a#mod-sidebar-topbar-nav2{:href=>"#my-account"}
                 %span
                     My account
                     
-    %ul.mod-sidebar-navbar
+    %ul.mod-sidebar-navbar#mod-sidebar-navbar-myaccount{:style=>"display:none"}
         %li
             %a{:href=>"#published-stories"}
                 %span
@@ -35,3 +35,7 @@
                 %span
                     Options
                     
+    %ul#mod-sidebar-navbar-category.mod-sidebar-navbar{:"data-bind"=>"foreach: category"}
+        %li
+            %a{:href=>"#category"}
+                %span{:"data-bind"=>"text: title"}
