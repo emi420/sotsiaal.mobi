@@ -1,5 +1,5 @@
 /*
- * Reply module
+ * Login module
  */
 
 (function($) {
