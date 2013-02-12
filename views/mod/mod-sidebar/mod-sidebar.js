@@ -10,6 +10,7 @@
         $nav = $("#main"),
         nav = $nav.nav(),
         navCurrent = nav.items[nav.current],
+        modCategoryIsInitialized = false,
         Sidebar,
         sidebar;
     
@@ -59,7 +60,10 @@
     $(navCurrent.el).onDragStart(function(gesture) {
 
         // modCategory connector
-        app.modCategory.bindData($("#mod-sidebar-navbar-category"));
+        if (modCategoryIsInitialized === false) {
+            app.modCategory.bindData($("#mod-sidebar-navbar-category"));        
+            modCategoryIsInitialized = true;
+        }
 
         if (gesture.distanceFromOriginX > 10 || gesture.distanceFromOriginX < -10) {
             sidebar.show();

@@ -37,5 +37,5 @@
                     
     %ul#mod-sidebar-navbar-category.mod-sidebar-navbar{:"data-bind"=>"foreach: category"}
         %li
-            %a{:href=>"#category"}
+            %a{:href=>"#category",:"data-bind"=>"tapEnd: $parent.go"}
                 %span{:"data-bind"=>"text: title"}

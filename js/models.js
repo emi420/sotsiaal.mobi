@@ -45,13 +45,11 @@
        // .all()
        
        $.extend({
-            _all: app.models.Story.all,
-
-            all: function(options) {
+            getAll: function(options) {
                 var result;
     
                 // TODO: Get from API
-                result = app.models.Story._all();
+                result = app.models.Story.all();
                 this._delayedSuccess = true;
                 this.cache = result;
                 return this;
@@ -82,13 +80,12 @@
        });
 
        $.extend({
-            _all: app.models.Category.all,
 
-            all: function(options) {
+            getAll: function(options) {
                 var result;
     
                 // TODO: Get from API
-                result = app.models.Category._all();
+                result = app.models.Category.all();
                 this._delayedSuccess = true;
                 this.cache = result;
                 return this;

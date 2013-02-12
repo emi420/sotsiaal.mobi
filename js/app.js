@@ -21,11 +21,11 @@
        views = [
             "story",
             "story-create",
-            "index",                
+            "category",           
+            "index",     
        ]
 
        /*
-       "story-list",
        "user",
        "user-edit",
        */

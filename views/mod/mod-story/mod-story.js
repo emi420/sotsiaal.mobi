@@ -5,31 +5,37 @@
     var app = $("main").app(),
         modStoryList,
         modStory,
-        story;
+        story,
+        storyList;
 
     modStoryList = {
         
         init: function() {
         
-            var storyList = app.models.Story._all(),
-                story,
+            var story,
                 user,
                 comment,
-                category,
+                category1,
+                category2,
                 i;
                 
                 /*** SAMPLE DATA ***/
-                if (storyList.length < 2) {                
+                if (app.models.Story.count() < 2) {                
                     user = app.models.User.create({
                         nickname: "emi420",
                         avatar: "img/tmp/avatar.jpg"
                     });
                     user.save();
 
-                    category = app.models.Category.create({
-                        title: "test",
+                    category1 = app.models.Category.create({
+                        title: "Misc",
                     });
-                    category.save();
+                    category1.save();
+                    category2 = app.models.Category.create({
+                        title: "Etc",
+                    });
+                    category2.save();
+
 
                     for (i = 0; i < 5; i++) {
                         story = app.models.Story.create({
@@ -40,10 +46,22 @@
                             commentsCount: 2,
                             description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
                             user: user,
-                            category: category,
+                            category: category1,
                         });
                         story.save();
                     }
+
+                    story = app.models.Story.create({
+                        title: "This is my story, my story number " + i,
+                        pop: 0,
+                        date: "2d",
+                        picture: "img/tmp/story.jpg",
+                        commentsCount: 2,
+                        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                        user: user,
+                        category: category2,
+                    });
+                    story.save();
 
                     comment = app.models.Comment.create({
                         text: "This is a comment",
@@ -68,55 +86,62 @@
                 app.go("story");
             },
         },
-        
+
+        updateBindings: function(data) {
+            var i;
+            storyList.removeAll();
+            for (i = 0 ; i < data.length; i++) {
+                storyList.push(data[i]);
+            }
+        },        
+                
         /*
          * Bind data
          */         
-        bindData: function(element) {
+        bindData: function(element, data) {
             var view = this;
-            app.models.Story.all().success(
-                function(result) {
-                    view.showStoryList(element, result);
-                }
-            );
+            
+            if (data === undefined) {
+                app.models.Story.getAll().success(
+                    function(data) {
+                        view.showStoryList(element, data);
+                    }
+                );
+            } else {
+                view.showStoryList(element, data);                
+            }  
         },
         
-        showStoryList: function(element, story) {
+        updateStoryListView: function(data) {
+            console.log("ok");
+        },
+        
+        showStoryList: function(element, data) {
             var i;
-
-            for (i = story.length; i--;) {
-                story[i].commentsCount = app.models.Comment.filter({
-                    story: story[i]
+            for (i = data.length; i--;) {
+                data[i].commentsCount = app.models.Comment.filter({
+                    story: data[i]
                 }).length;
-                story[i].category = app.models.Category.get(story[i].category);
-                story[i].user = app.models.User.get(story[i].user);
+                data[i].category = app.models.Category.get(data[i].category);
+                data[i].user = app.models.User.get(data[i].user);
             }
-            
+
+            // FIXME CHECK
             $.extend({
-                showEmptyMsg:function() {
-                    if (this.length === 0) {
-                        return "visible";
-                    } else {
-                        return "";
-                    }
-                },    
-                showList: function() {
-                    if (this.length === 0) {
-                        return "";
-                    } else {
-                        return "visible";
-                    }
-                }
-            }, story);
-            
+                showList: function() {return "visible"},
+                showEmptyMsg: function() {return ""},
+            }, data);
+
+            storyList = app.models.observableArray(data)
             app.models.bind(
-                 {"story": app.models.observableArray(story)},
-                 element,
-                 {
-                    go: modStoryList.handlers.go,
-                 }
+                   {
+                        "story": storyList,
+                   },
+                   element,
+                   {
+                      go: modStoryList.handlers.go,
+                   }
             );
-            
         }
                     
     }
