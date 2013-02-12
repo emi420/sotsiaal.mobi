@@ -30,7 +30,7 @@
         },
         
         onLoad: function() {
-            $(nav.header.navLinks.navSearch).show();
+            $(nav.header.navLinks.navSearch).hide();
             $(nav.header.navLinks.navCreate).show();
             $(nav.header.navLinks.navPost).hide();
             app.modStoryList.onLoadView();
@@ -49,9 +49,6 @@
             
             // Bind data
             app.modStoryList.updateBindings(story);
-
-
-
         },
                     
     }

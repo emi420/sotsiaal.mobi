@@ -9,7 +9,7 @@
     var app = $("main").app(),
         $nav = $("#main"),
         nav = $nav.nav(),
-        navCurrent = nav.items[nav.current],
+        navCurrent = function() { return nav.items[nav.current] },
         modCategoryIsInitialized = false,
         Sidebar,
         sidebar;
@@ -57,7 +57,7 @@
     var navX = 0,
         navY = 0;
     
-    $(navCurrent.el).onDragStart(function(gesture) {
+    $nav.onDragStart(function(gesture) {
 
         // modCategory connector
         if (modCategoryIsInitialized === false) {
@@ -67,24 +67,23 @@
 
         if (gesture.distanceFromOriginX > 10 || gesture.distanceFromOriginX < -10) {
             sidebar.show();
-            navCurrent.movable = false;
+            navCurrent().movable = false;
         } else {
-            navCurrent.movable = true;
+            navCurrent().movable = true;
         }
 
     })
     
-    $(navCurrent.el).onDragMove(function(gesture) {
+    $nav.onDragMove(function(gesture) {
         var maxdist = $.view.clientW/2,
             x;
         
-        if (navCurrent.movable === false) {
+        if (navCurrent().movable === false) {
             x = navX + (gesture.x - gesture.lastX);
             $nav.translate({x:x,y:0});
     
             if (x < 0) {
                 $nav.translate({x:0,y:0});
-                sidebar.hide();            
                 navX = 0;            
             } else if (x > maxdist) {
                 $nav.translate({x:maxdist,y:0});
@@ -96,18 +95,18 @@
         
     });
     
-    $(navCurrent.el).onDragEnd(function(gesture) {
-        navCurrent.movable = true;
+    $nav.onDragEnd(function(gesture) {
+        navCurrent().movable = true;
     });
     
     $("#mod-sidebar-topbar-nav1").onTapEnd(function() {
-        $("#mod-sidebar-navbar-category").hide();    
-        $("#mod-sidebar-navbar-myaccount").show();   
+        $("#mod-sidebar-navbar-category").show();    
+        $("#mod-sidebar-navbar-myaccount").hide();   
     });
 
     $("#mod-sidebar-topbar-nav2").onTapEnd(function() {
-        $("#mod-sidebar-navbar-category").show();    
-        $("#mod-sidebar-navbar-myaccount").hide();    
+        $("#mod-sidebar-navbar-category").hide();    
+        $("#mod-sidebar-navbar-myaccount").show();    
     });
     
 
