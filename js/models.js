@@ -86,7 +86,8 @@
        User = function(options) {
        
            this.id =        options.id;
-           this.nickname =  options.nickname;           
+           this.nickname =  options.nickname;      
+           this.email =     options.email;     
            this.avatar =    options.avatar;           
   
            return this;
@@ -103,8 +104,14 @@
             },
             auth: function(options) {
                 // TODO: API
-                app.data.set("currentUser", app.models.User.get(1));
-                return true;
+                var user = app.data.set("currentUser", app.models.User.filter({
+                    nickname: options.username
+                })[0]);
+                if (user !== undefined) {
+                    return true
+                } else {
+                    return false;
+                }
             },
             logout: function() {
                 app.data.unset("currentUser");

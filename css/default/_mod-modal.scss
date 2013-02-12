@@ -15,6 +15,7 @@
     
         background: $background;
         border-radius: $border-radius;
+        padding-bottom: 2em;
         
         @if $shadow == true {
             @include box-shadow(1px 1px 5px 2px $shadow-color);    
@@ -66,6 +67,11 @@
                 }    
                 top: 6px;
             }            
+        }
+        
+        // FIXME CHECK
+        .mod-ui-modal-3-button {
+            left: 104px;  
         }
     }
 }

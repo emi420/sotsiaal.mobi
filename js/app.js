@@ -117,30 +117,15 @@
                 loadModule;
             
             modules = [
-                {
-                    name: "mod-topbar",
-                },
-                {
-                    name: "mod-comments",
-                },
-                {
-                    name: "mod-story-list",
-                    js: false
-                },
-                {
-                    name: "mod-story",
-                    html: false
-                },
-                {
-                    name: "mod-modal",
-                    html: false
-                },
-                {
-                    name: "mod-reply"
-                },
-                {
-                    name: "mod-login"
-                },
+                {name: "mod-topbar",},
+                {name: "mod-comments",},
+                {name: "mod-story-list",js: false},
+                {name: "mod-story",html: false},
+                {name: "mod-modal",html: false},
+                {name: "mod-reply"},
+                {name: "mod-login"},
+                {name: "mod-signup"},
+                {name: "mod-sidebar"},
             ]
             
             loadModule = function(module) {

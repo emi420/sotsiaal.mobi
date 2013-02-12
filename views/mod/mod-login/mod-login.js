@@ -61,6 +61,11 @@
         });
     });
 
+    $("#mod-login-signup").onTapEnd(function() {
+        login.modal.hide();
+        app.modSignup.modal.show();
+    });
+    
     // Public modules
     $.extend({modLogin: login}, app);
     
