@@ -75,4 +75,8 @@
         story.picture = imageURI;
     });
     
+    // FIXME CHECK (styles)
+    //$("#mod-story-create-textarea").ui({type:"TextArea"});
+    //$("#mod-story-create-title").ui({type:"Text"});
+    
 }(Mootor));

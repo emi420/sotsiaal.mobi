@@ -29,6 +29,7 @@
             });
             comment.save();
             this._delayedSuccess = true;
+            this.$textarea[0].blur();
             return this;
         },
         
@@ -76,6 +77,8 @@
         
     // FIXME CHECK: set temporary sample user
     app.data.set("currentUser", app.models.User.get(1));
+
+    $("#mod-reply-textarea").ui({type:"TextArea"});
 
     // Public modules
     $.extend({modReply: reply}, app);
