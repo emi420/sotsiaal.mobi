@@ -16,12 +16,10 @@
     Sidebar = function(options) {
         options = options === undefined ? {} : options;
         Sidebar.initHTML(this, options);
-        Sidebar.setTouchEvents(this);
         return this;
     }
     
     $.extend({
-        x: 0,
         initHTML: function(self, options) {
             var el,
                 className;
@@ -36,11 +34,16 @@
                 self.$el.html(options.html);
             }
         },
-        setTouchEvents: function(self) {
-        }
     }, Sidebar);
     
     Sidebar.prototype = {
+        x: 0,
+        show: function() {
+            this.$el.show();
+        },
+        hide: function() {
+            this.$el.hide();
+        },
         html: function(html) {
             this.$el.html(html);
         }
@@ -50,29 +53,45 @@
         
     $.extend({modSidebar: sidebar}, app);  
     
-    var navX = 0;
+    var navX = 0,
+        navY = 0;
+    
+    $(navCurrent.el).onDragStart(function(gesture) {
+
+        if (gesture.distanceFromOriginX > 10 || gesture.distanceFromOriginX < -10) {
+            sidebar.show();
+            navCurrent.movable = false;
+        } else {
+            navCurrent.movable = true;
+        }
+
+    })
     
     $(navCurrent.el).onDragMove(function(gesture) {
         var maxdist = $.view.clientW/2,
             x;
-            
-        x = navX + (gesture.x - gesture.lastX);
         
-        $nav.translate({x:x,y:0});
-
-        if (x < 0) {
-            navCurrent.movable = true;
-            $nav.translate({x:0,y:0});
-            navX = 0;            
-        } else if (x > maxdist) {
-            navCurrent.movable = true;
-            $nav.translate({x:maxdist,y:0});
-            navX = maxdist;            
-        } else {
-            navCurrent.movable = false;
-            navX = x;                        
-        }       
+        if (navCurrent.movable === false) {
+            x = navX + (gesture.x - gesture.lastX);
+            $nav.translate({x:x,y:0});
+    
+            if (x < 0) {
+                $nav.translate({x:0,y:0});
+                sidebar.hide();            
+                navX = 0;            
+            } else if (x > maxdist) {
+                $nav.translate({x:maxdist,y:0});
+                navX = maxdist;            
+            } else {
+                navX = x;                        
+            }                               
+        }
         
     });
+    
+    $(navCurrent.el).onDragEnd(function(gesture) {
+        navCurrent.movable = true;
+    });
+
 
 }(Mootor));
