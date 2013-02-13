@@ -100,13 +100,12 @@
     });
     
     $("#mod-sidebar-topbar-nav1").onTapEnd(function() {
-        $("#mod-sidebar-navbar-category").show();    
-        $("#mod-sidebar-navbar-myaccount").hide();   
     });
 
     $("#mod-sidebar-topbar-nav2").onTapEnd(function() {
-        $("#mod-sidebar-navbar-category").hide();    
-        $("#mod-sidebar-navbar-myaccount").show();    
+        app.modMyAccount.modal.show();
+        app.modMyAccount.focus();
+        app.modMyAccount.onLoad();
     });
     
 

@@ -9,6 +9,7 @@
            ViewModel,
            Story,
            User,
+           Vote,
            Category;
 
        /*
@@ -70,6 +71,23 @@
             }
        
        }, app.models.Story)
+
+       // Vote
+       
+       Vote = function(options) {
+       
+           this.id =            options.id;
+           this.story =         options.story;           
+           this.user =          options.user;
+           this.value =         options.value;
+  
+           return this;
+       }; 
+       
+       app.models.Vote = app.Model({ 
+            model: Vote, 
+            localStoragePrefix: "sotsiaal-vote"
+       });
 
        // Category
        

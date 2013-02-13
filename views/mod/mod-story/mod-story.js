@@ -77,7 +77,13 @@
         },
         
         onLoadView: function() {
-            app.data.get("story").sort(app.models.sort);
+            app.models.Story.getAll().success(
+                    function(data) {
+                        modStoryList.updateBindings(
+                            data
+                        )            
+                    }
+            );
         },
         
         handlers: {
@@ -86,21 +92,12 @@
                 app.go("story");
             },
         },
-        
-        loadForeign: function(data) {
-            data.commentsCount = app.models.Comment.filter({
-                story: data
-            }).length;
-            data.category = app.models.Category.get(data.category);
-            data.user = app.models.User.get(data.user);            
-            return data;
-        },
 
         updateBindings: function(data) {
             var i;
             storyList.removeAll();
             for (i = 0 ; i < data.length; i++) {
-                data[i] = this.loadForeign(data[i]);
+                data[i] = modStory.loadForeign(data[i]);
                 storyList.push(data[i]);
             }
         },        
@@ -110,7 +107,6 @@
          */         
         bindData: function(element, data) {
             var view = this;
-            
             if (data === undefined) {
                 app.models.Story.getAll().success(
                     function(data) {
@@ -125,7 +121,7 @@
         showStoryList: function(element, data) {
             var i;
             for (i = data.length; i--;) {
-                data[i] = this.loadForeign(data[i]);
+                data[i] = modStory.loadForeign(data[i]);
             }
 
             // FIXME CHECK
@@ -152,11 +148,16 @@
     modStoryList.init()
 
     modStory = {
+    
+        el: {},
+        
         /*
          * Bind data
          */         
         bindData: function(element) {
             var currentStory = app.data.get("currentStory");
+            
+            this.el = element;
 
             if (currentStory === undefined) {
                 currentStory = app.models.Story.create({});
@@ -169,10 +170,43 @@
                 element
             );
         },
+
+        loadForeign: function(data) {
+            data.commentsCount = app.models.Comment.filter({
+                story: data
+            }).length;
+            data.category = app.models.Category.get(data.category);
+            data.user = app.models.User.get(data.user);            
+            return data;
+        },
+
     }
     
     // Public modules
     $.extend({modStoryList: modStoryList}, app);
     $.extend({modStory: modStory}, app);
+
+    // modVote connector    
+    $("#story-mod-pop").onTapEnd(function() {
+        app.modVote.send({
+            value: 1
+        }).success(function() {
+            var story = app.data.get("currentStory"),
+                user = story.user,
+                category = story.category;
+                
+            story.pop += 1;
+            // FIXME CHECK: put?
+            //debugger;
+            story.user = user.id;
+            story.category = category.id;
+            story.put()
+            story.user = user;
+            story.category = category;
+            modStory.bindData(
+                modStory.el
+            );
+        });
+    });
             
 }(Mootor));

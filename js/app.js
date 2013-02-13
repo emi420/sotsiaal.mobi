@@ -24,11 +24,6 @@
             "category",           
             "index",     
        ]
-
-       /*
-       "user",
-       "user-edit",
-       */
        
        $mainDiv = $("#" + appId);
        for (i = views.length; i--;) {
@@ -127,6 +122,8 @@
                 {name: "mod-signup"},
                 {name: "mod-sidebar"},
                 {name: "mod-category", html: false},
+                {name: "mod-my-account"},
+                {name: "mod-vote", html: false},
             ]
             
             loadModule = function(module) {
