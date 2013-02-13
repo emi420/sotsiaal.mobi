@@ -40,6 +40,11 @@
               this.$username[0].focus();
         },
         
+        blur: function() {            
+            this.$username[0].blur();
+            this.$password[0].blur();
+        },
+        
         success: function(callback) {
             this._success = callback;
             if (this._delayedSuccess === true) {
@@ -51,6 +56,7 @@
     login = new Login();
     
     $("#mod-login-cancel").onTapEnd(function() {
+        login.blur();
         login.modal.hide();
     });
 
@@ -63,7 +69,9 @@
 
     $("#mod-login-signup").onTapEnd(function() {
         login.modal.hide();
+        login.blur();
         app.modSignup.modal.show();
+        app.modSignup.focus();
     });
     
     // Public modules

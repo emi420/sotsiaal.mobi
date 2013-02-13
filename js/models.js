@@ -60,6 +60,13 @@
                 if (this._delayedSuccess === true) {
                     this._success(this.cache);
                 }          
+            },
+            
+            getPopularByDateNow: function() {
+                return app.models.Story.all();
+            },
+            getPopularByDate7d: function() {
+                return [app.models.Story.get(1)];
             }
        
        }, app.models.Story)

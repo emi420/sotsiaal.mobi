@@ -47,7 +47,13 @@
         },
         
         focus: function() {
-              this.$username[0].focus();
+            this.$username[0].focus();
+        },
+
+        blur: function() {
+            this.$email[0].blur();
+            this.$username[0].blur();
+            this.$password[0].blur();
         },
         
         success: function(callback) {
@@ -61,6 +67,7 @@
     signup = new Signup();
     
     $("#mod-signup-cancel").onTapEnd(function() {
+        signup.blur();
         signup.modal.hide();
     });
 
@@ -73,7 +80,9 @@
 
     $("#mod-signup-login").onTapEnd(function() {
         signup.modal.hide();
+        signup.blur();
         app.modLogin.modal.show();
+        app.modLogin.focus();
     });
     
     // Public modules

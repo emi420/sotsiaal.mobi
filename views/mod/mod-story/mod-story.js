@@ -40,7 +40,7 @@
                     for (i = 0; i < 5; i++) {
                         story = app.models.Story.create({
                             title: "This is my story, my story number " + i,
-                            pop: 0,
+                            pop: i,
                             date: "2d",
                             picture: "img/tmp/story.jpg",
                             commentsCount: 2,
@@ -100,7 +100,7 @@
             var i;
             storyList.removeAll();
             for (i = 0 ; i < data.length; i++) {
-                data = this.loadForeign(data);
+                data[i] = this.loadForeign(data[i]);
                 storyList.push(data[i]);
             }
         },        
@@ -125,7 +125,7 @@
         showStoryList: function(element, data) {
             var i;
             for (i = data.length; i--;) {
-                data = this.loadForeign(data);
+                data[i] = this.loadForeign(data[i]);
             }
 
             // FIXME CHECK
