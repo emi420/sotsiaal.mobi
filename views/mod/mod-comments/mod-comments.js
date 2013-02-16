@@ -49,14 +49,27 @@
 
         init: function(self) {
             $("#mod-comments-writehere").onTapEnd(function() {
-                if (app.modReply.onSend === undefined) {
-                    app.modReply.onSend = function() {
-                        app.modComments.bindData();
+
+                var showReplyModal,
+                    currentUser;
+                    
+                showReplyModal = function() {
+                    if (app.modReply.onSend === undefined) {
+                        app.modReply.onSend = function() {
+                            app.modComments.bindData();
+                        }
                     }
-                }
-                app.modReply.clear();
-                app.modReply.modal.show();
-                app.modReply.focus();
+                    app.modReply.clear();
+                    app.modReply.modal.show();
+                    app.modReply.focus();                    
+                };
+                
+                app.modLogin.authRequired(
+                    function() {
+                        showReplyModal();                                            
+                    }
+                );
+
             });
         },
                     

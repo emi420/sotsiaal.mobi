@@ -78,6 +78,7 @@
             * Go to view (load nav / app view)
             */   
            go: function(id, options) {
+                app.modSidebar.hide();
                 if (options !== undefined) {
                     if (options.direction !== undefined) {
                         nav._config.direction = options.direction;                                        

@@ -50,6 +50,27 @@
             if (this._delayedSuccess === true) {
                 this._success();
             }
+        },
+        
+        authRequired: function(callback) {
+            var currentUser = app.models.User.getCurrent();
+            if (currentUser === undefined) {
+                app.modLogin.modal.show();
+                app.modLogin.focus();
+                if (app.modLogin.onSend === undefined) {
+                    app.modLogin.onSend = function(result) {
+                        if (result === true) {
+                            callback();                        
+                        } else {
+                            alert("Invalid login");
+                        }
+                    }
+                }
+                return false;
+            } else {
+                callback();                        
+                return true;            
+            }          
         }
     }
                 

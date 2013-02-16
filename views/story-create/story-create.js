@@ -26,19 +26,13 @@
             // TODO: categories
             var category = app.models.Category.get(1);
             
-            currentUser = app.models.User.getCurrent();
-            if (currentUser === undefined) {
-                app.modLogin.modal.show();
-                app.modLogin.focus();
-                if (app.modLogin.onSend === undefined) {
-                    app.modLogin.onSend = function(result) {
-                        if (result === true) {
-                            app.go("story-create");                         
-                        } else {
-                            alert("Invalid login");
-                        }
+            if (
+                app.modLogin.authRequired(
+                    function() {
+                        app.go("story-create");                                     
                     }
-                }
+                )
+            === false) {
                 return false;
             }
             
