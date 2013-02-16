@@ -69,7 +69,11 @@
             sidebar.show();
             navCurrent().movable = false;
         } else {
-            navCurrent().movable = true;
+            console.log(navCurrent().x);
+            if (navX < 10) {
+                navCurrent().movable = true;
+                sidebar.hide();                
+            }
         }
 
     })
@@ -96,7 +100,7 @@
     });
     
     $nav.onDragEnd(function(gesture) {
-        navCurrent().movable = true;
+        //navCurrent().movable = true;
     });
     
     $("#mod-sidebar-topbar-nav1").onTapEnd(function() {
