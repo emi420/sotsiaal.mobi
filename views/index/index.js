@@ -32,16 +32,23 @@
             
         },
         
-        onLoad: function() {
+        updateHeader: function() {
             $(nav.header.navLinks.navSearch).show();
             $(nav.header.navLinks.navCreate).show();
-            $(nav.header.navLinks.navPost).hide();
-            
+            $(nav.header.navLinks.navPost).hide();            
+        },
+        
+        bindData: function() {
             app.models.Story.getAll().success(
                 function(data) {
                     view.storyList.updateBindings(data)             
                 }
-            )
+            );            
+        },
+        
+        onLoad: function() {
+            view.updateHeader();
+            view.bindData();
         },
                     
     }

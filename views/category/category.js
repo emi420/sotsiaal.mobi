@@ -33,25 +33,30 @@
             
         },
         
-        onLoad: function() {
+        updateHeader: function() {
             $(nav.header.navLinks.navSearch).hide();
             $(nav.header.navLinks.navCreate).show();
-            $(nav.header.navLinks.navPost).hide();
-            
-            var currentCategory = app.data.get("currentCategory");
+            $(nav.header.navLinks.navPost).hide();            
+        },
+        
+        bindData: function() {
+            var currentCategory = app.data.get("currentCategory");                
             if (currentCategory) {
                 categoryTitle = currentCategory.title;            
             }
-
             app.models.applyBindings(
                 {"categoryTitle": categoryTitle},
                 $("#mod-category-title")[0]
             );
             
-            var stories = app.models.Story.filter({category:currentCategory});
-            
-            // Bind data
-            view.storyList.updateBindings(stories);
+            view.storyList.updateBindings(
+                app.models.Story.filter({category:currentCategory})
+            );           
+        },
+        
+        onLoad: function() {
+            view.updateHeader();
+            view.bindData();
         },
                     
     }
