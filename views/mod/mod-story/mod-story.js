@@ -4,11 +4,68 @@
 
     var app = $("main").app(),
         modStoryList,
+        ModStoryList,
         modStory,
+        ModStory,
         story,
         storyList;
 
-    modStoryList = {
+    
+    modStory = function() {
+        return new ModStory();
+    }
+        
+    ModStory = function() {
+        return this;
+    }
+    
+    ModStory.prototype = {
+    
+        el: {},
+        
+        /*
+         * Bind data
+         */         
+        bindData: function(element) {
+            var currentStory = app.data.get("currentStory");
+            
+            this.el = element;
+
+            if (currentStory === undefined) {
+                currentStory = app.models.Story.create({});
+            }
+
+            app.models.applyBindings(
+                { 
+                    story: currentStory 
+                },
+                element
+            );
+        },
+
+        loadForeign: function(data) {
+            data.commentsCount = app.models.Comment.filter({
+                story: data
+            }).length;
+            data.category = app.models.Category.get(data.category);
+            data.user = app.models.User.get(data.user);            
+            return data;
+        },
+
+    }
+
+    modStoryList = function(modStory) {
+        return new ModStoryList(modStory);
+    }
+    
+    ModStoryList = function(modStory) {
+        this.modStory = modStory;
+        return this;
+    }
+    
+    ModStoryList.prototype = {
+        
+        el: {},
         
         init: function() {
         
@@ -76,16 +133,6 @@
             
         },
         
-        onLoadView: function() {
-            app.models.Story.getAll().success(
-                    function(data) {
-                        modStoryList.updateBindings(
-                            data
-                        )            
-                    }
-            );
-        },
-        
         handlers: {
             go: function(story) {
                 app.data.set("currentStory", story);
@@ -93,100 +140,58 @@
             },
         },
 
+        /*
+         * Update
+         */         
         updateBindings: function(data) {
             var i;
-            storyList.removeAll();
-            for (i = 0 ; i < data.length; i++) {
-                data[i] = modStory.loadForeign(data[i]);
-                storyList.push(data[i]);
-            }
+            this.data.removeAll();
+            for (i = 0; i < data.length; i++) {
+                this.data.push(data[i]);
+            }; 
         },        
                 
         /*
-         * Bind data
+         * Bind
          */         
         bindData: function(element, data) {
-            var view = this;
-            if (data === undefined) {
-                app.models.Story.getAll().success(
-                    function(data) {
-                        view.showStoryList(element, data);
-                    }
-                );
-            } else {
-                view.showStoryList(element, data);                
-            }  
-        },
-                
-        showStoryList: function(element, data) {
-            var i;
-            for (i = data.length; i--;) {
-                data[i] = modStory.loadForeign(data[i]);
-            }
-
             // FIXME CHECK
             $.extend({
                 showList: function() {return "visible"},
                 showEmptyMsg: function() {return ""},
             }, data);
 
-            storyList = app.models.observableArray(data)
-            app.models.bind(
-                   {
-                        "story": storyList,
-                   },
-                   element,
-                   {
-                      go: modStoryList.handlers.go,
-                   }
-            );
-        }
-                    
-    }
-    
-    // Initialize story-list
-    modStoryList.init()
-
-    modStory = {
-    
-        el: {},
-        
-        /*
-         * Bind data
-         */         
-        bindData: function(element) {
-            var currentStory = app.data.get("currentStory");
-            
             this.el = element;
-
-            if (currentStory === undefined) {
-                currentStory = app.models.Story.create({});
-            }
-
-            app.models.applyBindings(
-                { 
-                    story: currentStory 
-                },
-                element
+            this.data = app.models.observableArray(data);
+            this.viewModel = {story: this.data};
+            app.models.bind(
+                this.viewModel,
+                element,
+                {
+                    go: this.handlers.go
+                }
             );
         },
-
-        loadForeign: function(data) {
-            data.commentsCount = app.models.Comment.filter({
-                story: data
-            }).length;
-            data.category = app.models.Category.get(data.category);
-            data.user = app.models.User.get(data.user);            
-            return data;
-        },
-
+                                    
     }
+    
+    $.extend({
+        list: function() {
+            //console.log(this);
+            return modStoryList(this);
+        }   
+    }, ModStory.prototype)
     
     // Public modules
-    $.extend({modStoryList: modStoryList}, app);
-    $.extend({modStory: modStory}, app);
+    $.extend({
+        modStory: modStory
+    }, app);
 
-    // modVote connector    
+    
+    /*
+     * modVote connector
+     * FIXME CHECK: move to story view?
+     */     
     $("#story-mod-pop").onTapEnd(function() {
         app.modVote.send({
             value: 1

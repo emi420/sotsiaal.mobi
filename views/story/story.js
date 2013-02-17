@@ -15,13 +15,14 @@
         init: function() {
             // Set onLoad callbacks
             $storyModComments.html($["mod-comments"].html);
+            view.modStory = app.modStory();
         },
         
         onLoad: function() {
             $navSearch.hide();            
             $navCreate.show();
             $navPost.hide();
-            app.modStory.bindData($storyMod[0]);
+            view.modStory.bindData($storyMod[0]);
             app.modComments.bindData();
         },
                     

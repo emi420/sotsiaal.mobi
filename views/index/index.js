@@ -12,9 +12,15 @@
         
             $("#index-mod-story-list").html($["mod-story-list"].html);
             $("#index-mod-topbar").html($["mod-topbar"].html);
+            
+            view.storyList = app.modStory().list();
 
-            // Bind data
-            app.modStoryList.bindData($("#index")[0]);
+            app.models.Story.getAll().success(
+                function(data) {
+                    // Bind data
+                    view.storyList.bindData($("#index")[0], data);
+                }
+            )
 
             // Set onLoad callbacks
             navItem.onLoad = view.onLoad;
@@ -22,13 +28,20 @@
                 view.onLoad();               
             }
             
+            app.get(navItemName).storyList = view.storyList;
+            
         },
         
         onLoad: function() {
             $(nav.header.navLinks.navSearch).show();
             $(nav.header.navLinks.navCreate).show();
             $(nav.header.navLinks.navPost).hide();
-            app.modStoryList.onLoadView();
+            
+            app.models.Story.getAll().success(
+                function(data) {
+                    view.storyList.updateBindings(data)             
+                }
+            )
         },
                     
     }

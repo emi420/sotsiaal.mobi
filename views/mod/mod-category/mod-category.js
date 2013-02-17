@@ -41,8 +41,7 @@
                 if (nav.items[nav.current].id !== "category") {
                     app.go("category");                 
                 } else {
-                    // FIXME CHECK
-                    app.modStoryList.updateBindings(
+                    app.get("category").storyList.updateBindings(
                         app.models.Story.filter({
                             category: category
                         })

@@ -17,9 +17,11 @@
                 {"categoryTitle": categoryTitle},
                 $("#mod-category-title")[0]
             );
+            
+            view.storyList = app.modStory().list();
 
             // Bind data
-            app.modStoryList.bindData($("#category-mod-story-list")[0]);
+            view.storyList.bindData($("#category-mod-story-list")[0], []);
 
             // Set onLoad callbacks
             navItem.onLoad = view.onLoad;
@@ -27,13 +29,14 @@
                 view.onLoad();               
             }
             
+            app.get(navItemName).storyList = view.storyList;
+            
         },
         
         onLoad: function() {
             $(nav.header.navLinks.navSearch).hide();
             $(nav.header.navLinks.navCreate).show();
             $(nav.header.navLinks.navPost).hide();
-            app.modStoryList.onLoadView();
             
             var currentCategory = app.data.get("currentCategory");
             if (currentCategory) {
@@ -45,10 +48,10 @@
                 $("#mod-category-title")[0]
             );
             
-            var story = app.models.Story.filter({category:currentCategory});
+            var stories = app.models.Story.filter({category:currentCategory});
             
             // Bind data
-            app.modStoryList.updateBindings(story);
+            view.storyList.updateBindings(stories);
         },
                     
     }
