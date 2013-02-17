@@ -51,6 +51,7 @@
     
                 // TODO: Get from API
                 result = app.models.Story.all();
+                result = this.loadForeign(result);
                 this._delayedSuccess = true;
                 this.cache = result;
                 return this;
@@ -64,14 +65,35 @@
             },
             
             getPopularByDateNow: function() {
-                return app.models.Story.all();
+                // FIXME CHECK (sample data)
+                var result = app.models.Story.all();
+                result = this.loadForeign(result);
+                return result;
             },
             getPopularByDate7d: function() {
-                return [app.models.Story.get(1)];
-            }
+                // FIXME CHECK (sample data)
+                var result = [app.models.Story.get(1)];
+                result = this.loadForeign(result);
+                return result;
+            },
+
+           loadForeign: function(data) {
+                var i,
+                    item;
+                    
+                for (i = data.length; i--;) {
+                    item = data[i];
+                    item.commentsCount = app.models.Comment.filter({
+                        story: item
+                    }).length;
+                    item.category = app.models.Category.get(item.category);
+                    item.user = app.models.User.get(item.user);                                
+                }
+                return data;
+           },
        
        }, app.models.Story)
-
+       
        // Vote
        
        Vote = function(options) {

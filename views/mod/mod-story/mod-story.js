@@ -43,15 +43,6 @@
             );
         },
 
-        loadForeign: function(data) {
-            data.commentsCount = app.models.Comment.filter({
-                story: data
-            }).length;
-            data.category = app.models.Category.get(data.category);
-            data.user = app.models.User.get(data.user);            
-            return data;
-        },
-
     }
 
     modStoryList = function(modStory) {
