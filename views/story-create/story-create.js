@@ -8,8 +8,7 @@
         $navSearch = $(nav.header.navLinks.navSearch),
         $modStoryCreateTitle = $("#mod-story-create-title"),
         $modStoryCreateTextarea = $("#mod-story-create-textarea"),
-        story = {},
-        currentUser;
+        story = {};
     
     view = {
         
@@ -41,7 +40,7 @@
             story = app.models.Story.create({
                 title:          "",
                 description:    "",
-                user:           currentUser,
+                user:           app.models.User.getCurrent(),
                 picture:        "",
                 date:           "a moment",
                 pop:            0,
@@ -68,8 +67,10 @@
         story.title = $modStoryCreateTitle[0].value;
         story.description = $modStoryCreateTextarea[0].value;
         story.save();
-        story.user = currentUser;
-        story.category = category;
+        
+        // FIXME CHECK
+        story = app.models.Story.loadForeign(story);
+        
         app.data.set("currentStory", story);
         app.go("story");
     });

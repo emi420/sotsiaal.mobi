@@ -58,7 +58,7 @@
         
         el: {},
         
-        init: function() {
+        sampleData: function() {
         
             var story,
                 user,
@@ -68,60 +68,56 @@
                 i;
                 
                 /*** SAMPLE DATA ***/
-                if (app.models.Story.count() < 2) {                
-                    user = app.models.User.create({
-                        nickname: "emi420",
-                        avatar: "img/tmp/avatar.jpg"
-                    });
-                    user.save();
+                user = app.models.User.create({
+                    nickname: "emi420",
+                    avatar: "img/tmp/avatar.jpg"
+                });
+                user.save();
 
-                    category1 = app.models.Category.create({
-                        title: "Misc",
-                    });
-                    category1.save();
-                    category2 = app.models.Category.create({
-                        title: "Etc",
-                    });
-                    category2.save();
+                category1 = app.models.Category.create({
+                    title: "Misc",
+                });
+                category1.save();
+                category2 = app.models.Category.create({
+                    title: "Etc",
+                });
+                category2.save();
 
 
-                    for (i = 0; i < 5; i++) {
-                        story = app.models.Story.create({
-                            title: "This is my story, my story number " + i,
-                            pop: i,
-                            date: "2d",
-                            picture: "img/tmp/story.jpg",
-                            commentsCount: 2,
-                            description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                            user: user,
-                            category: category1,
-                        });
-                        story.save();
-                    }
-
+                for (i = 0; i < 5; i++) {
                     story = app.models.Story.create({
                         title: "This is my story, my story number " + i,
-                        pop: 0,
+                        pop: i,
                         date: "2d",
                         picture: "img/tmp/story.jpg",
                         commentsCount: 2,
                         description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
                         user: user,
-                        category: category2,
+                        category: category1,
                     });
                     story.save();
-
-                    comment = app.models.Comment.create({
-                        text: "This is a comment",
-                        user: user,
-                        date: "2h ago",
-                        pop: "14",
-                        story: story
-                    });
-                    comment.save();
-
                 }
-            
+
+                story = app.models.Story.create({
+                    title: "This is my story, my story number " + i,
+                    pop: 0,
+                    date: "2d",
+                    picture: "img/tmp/story.jpg",
+                    commentsCount: 2,
+                    description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                    user: user,
+                    category: category2,
+                });
+                story.save();
+
+                comment = app.models.Comment.create({
+                    text: "This is a comment",
+                    user: user,
+                    date: "2h ago",
+                    pop: "14",
+                    story: story
+                });
+                comment.save();            
         },
         
         handlers: {
@@ -178,31 +174,4 @@
         modStory: modStory
     }, app);
 
-    
-    /*
-     * modVote connector
-     * FIXME CHECK: move to story view?
-     */     
-    $("#story-mod-pop").onTapEnd(function() {
-        app.modVote.send({
-            value: 1
-        }).success(function() {
-            var story = app.data.get("currentStory"),
-                user = story.user,
-                category = story.category;
-                
-            story.pop += 1;
-            // FIXME CHECK: put?
-            //debugger;
-            story.user = user.id;
-            story.category = category.id;
-            story.put()
-            story.user = user;
-            story.category = category;
-            modStory.bindData(
-                modStory.el
-            );
-        });
-    });
-            
 }(Mootor));

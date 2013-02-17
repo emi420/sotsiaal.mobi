@@ -79,7 +79,13 @@
 
            loadForeign: function(data) {
                 var i,
-                    item;
+                    item,
+                    isArray = true;
+                    
+                if ($.isArray(data) === false) {
+                    data = [data];
+                    isArray = false;
+                }
                     
                 for (i = data.length; i--;) {
                     item = data[i];
@@ -89,7 +95,12 @@
                     item.category = app.models.Category.get(item.category);
                     item.user = app.models.User.get(item.user);                                
                 }
-                return data;
+                
+                if (isArray === true) {
+                    return data;                
+                } else {
+                    return data[0];
+                }
            },
        
        }, app.models.Story)

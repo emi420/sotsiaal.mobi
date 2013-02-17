@@ -7,17 +7,17 @@
     "use strict";
     
     var app = $("main").app(),
-        Vote,
-        vote;
+        ModVote,
+        modVote;
                 
-    var Vote = function() {
+    var ModVote = function() {
         return this;
     }
     
-    Vote.prototype = {
+    ModVote.prototype = {
     
         send: function(options) {
-            if (app.models.Vote.filter({user: app.models.User.getCurrent()}) === null) {
+            if (app.models.Vote.filter({user: app.models.User.getCurrent()}).length === 0) {
                 var vote = app.models.Vote.create({
                     value:  options.value,
                     story:  app.data.get("currentStory"),
@@ -25,11 +25,6 @@
                 })
                 vote.save();                
                 this._delayedSuccess = true;
-            } else {
-                app.modLogin.modal.show();
-                app.modLogin.focus();
-                app.modLogin.onSend = function(result) {
-                }
             }
             return this;
         },
@@ -42,17 +37,9 @@
         }
     }
                 
-    vote = new Vote();
+    modVote = new ModVote();
     
-/*    $("#mod-Vote-send").onTapEnd(function() {
-        Vote.send().success(function() {
-            Vote.modal.hide();
-            Vote.onSend();     
-        });
-    });
-*/
-
     // Public modules
-    $.extend({modVote: vote}, app);
+    $.extend({modVote: modVote}, app);
     
 }(Mootor));

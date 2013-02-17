@@ -30,5 +30,28 @@
     
     // Initialize view
     view.init()
+
+    /*
+     * modVote connector
+     */     
+    $("#story-mod-pop").onTapEnd(function() {
+
+        app.modLogin.authRequired(
+            function() {
+
+                app.modVote.send({
+                    value: 1
+                }).success(function() {
+                    var story = app.data.get("currentStory");
+                    story.pop += 1;
+                    story.put();
+                    view.modStory.bindData(view.modStory.el);
+                });
+
+            }
+        );
+
+    });
+
     
 }(Mootor));
