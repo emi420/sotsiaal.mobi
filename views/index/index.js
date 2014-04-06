@@ -1,59 +1,36 @@
 (function($) {
-
-    var nav = $("#main").nav(),
-        app = $("main").app(),
-        view = {},
-        navItemName = "index",
-        navItem = nav.get(navItemName);
     
-    view = {
+    var app = m.app,
+        modStoryList = m.app._mod.StoryList,
+        modTopbar = m.app._mod.Topbar,
+        story;
+    
+    m.app.view("index").on("ready", function(self) {
         
-        init: function() {
-        
-            $("#index-mod-story-list").html($["mod-story-list"].html);
-            $("#index-mod-topbar").html($["mod-topbar"].html);
-            
-            view.storyList = app.modStory().list();
-
+        // Story List module
+        modStoryList.on("ready", function(self) {
+            $("#index-mod-story-list").html(self.html);
             app.models.Story.getAll().success(
                 function(data) {
                     // Bind data
-                    view.storyList.bindData($("#index")[0], data);
+                    modStoryList.bindData($("#index-mod-story-list")[0], data);
                 }
             )
+        });
+        
+        // Topbar module
+        modTopbar = m.app._mod.Topbar.on("ready", function(self) {
+            $("#index-mod-topbar").html(self.html);
+        });
 
-            // Set onLoad callbacks
-            navItem.onLoad = view.onLoad;
-            if(app.views[nav.current].id === navItemName) {
-                view.onLoad();               
+    }).on("load", function(self) {
+        
+        // Get all stories
+        app.models.Story.getAll().success(
+            function(data) {
+                modStoryList.updateBindings(data)             
             }
-            
-            app.get(navItemName).storyList = view.storyList;
-            
-        },
-        
-        updateHeader: function() {
-            $(nav.header.navLinks.navSearch).show();
-            $(nav.header.navLinks.navCreate).show();
-            $(nav.header.navLinks.navPost).hide();            
-        },
-        
-        bindData: function() {
-            app.models.Story.getAll().success(
-                function(data) {
-                    view.storyList.updateBindings(data)             
-                }
-            );            
-        },
-        
-        onLoad: function() {
-            view.updateHeader();
-            view.bindData();
-        },
-                    
-    }
-    
-    // Initialize view
-    view.init()
-            
-}(Mootor));
+        );
+    });
+
+}(window.Zepto));

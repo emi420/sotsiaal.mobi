@@ -1,0 +1,36 @@
+
+<div class='story-list story-list-msg story-list-empty' data-bind='css: story.showEmptyMsg' id='storyEmptyMsg'>
+
+  <div class='empty-msg'>
+    <h2 class='title'>Welcome to Sotsiaal</h2>
+    <p>
+      <strong>There are no stories created.</strong>
+    </p>
+    <p>You can create your first pressing the button in the upper-right corner of the screen.</p>
+  </div>
+</div>
+
+<div class='story-list' data-bind='css: story.showList'>
+  <ul data-bind='foreach: story' id='storyList'>
+    <li class='story' data-bind='click: $parent.go'>
+      <h2 class='title' data-bind='text: title'></h2>
+      <div class='pop' data-bind='text: pop'></div>
+      <div class='info'>
+        <span class='comments'>
+          <span data-bind='text: commentsCount'></span>
+        </span>
+        <span class='user'>
+          <strong data-bind='text: user.nickname'></strong>
+        </span>
+        <span class='category'>
+          to
+          <span data-bind='text: category.title'></span>
+        </span>
+        <span class='date'>
+          <span data-bind='text: date'></span>
+          ago
+        </span>
+      </div>
+    </li>
+  </ul>
+</div>

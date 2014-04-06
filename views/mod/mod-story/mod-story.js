@@ -2,7 +2,7 @@
 
     "use strict";
 
-    var app = $("main").app(),
+    var app = m.app,
         modStoryList,
         ModStoryList,
         modStory,
@@ -122,8 +122,8 @@
         
         handlers: {
             go: function(story) {
-                app.data.set("currentStory", story);
-                app.go("story");
+                console.log("here!");
+                app.go("#story/" + story.id);
             },
         },
 
@@ -132,46 +132,34 @@
          */         
         updateBindings: function(data) {
             var i;
-            this.data.removeAll();
-            for (i = 0; i < data.length; i++) {
-                this.data.push(data[i]);
-            }; 
+            //this.data.removeAll();
+            //for (i xs= 0; i < data.length; i++) {
+            //    this.data.push(data[i]);
+            //}; 
         },        
                 
         /*
          * Bind
          */         
         bindData: function(element, data) {
-            // FIXME CHECK
-            $.extend({
-                showList: function() {return "visible"},
-                showEmptyMsg: function() {return ""},
-            }, data);
 
-            this.el = element;
-            this.data = app.models.observableArray(data);
-            this.viewModel = {story: this.data};
-            app.models.bind(
-                this.viewModel,
-                element,
-                {
-                    go: this.handlers.go
-                }
-            );
+            this.data = story;
+            var story = ko.observableArray(data);
+            story.showEmptyMsg = "";
+            story.showList = "visible";
+            
+            m.app.models.bind(
+                {story: story},
+                $("#index-mod-story-list")[0],
+                this.handlers
+            )
+
         },
                                     
     }
     
-    $.extend({
-        list: function() {
-            //console.log(this);
-            return modStoryList(this);
-        }   
-    }, ModStory.prototype)
     
-    // Public modules
-    $.extend({
-        modStory: modStory
-    }, app);
-
-}(Mootor));
+    $.extend(m.app._mod.StoryList, ModStoryList.prototype);
+    $.extend(m.app._mod.Story, ModStory.prototype);
+    
+}(window.Zepto));

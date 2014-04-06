@@ -1,178 +1,62 @@
 (function($) {
+
+    "use strict";
     
-    "use strict";       
+    var app,
+        Mod;
 
-    $(document).ready(function() {
+    app = m.app({
+        views: [
+            "index"
+        ]
+    }).init();
 
-       var nav = {},
-           app = {},
-           $mainDiv,
-           viewDiv,
-           views,
-           viewId,
-           navLinkName,
-           appId = "main",
-           i;
-           
-       /*
-        * Views
-        */
-        
-       views = [
-            "story",
-            "story-create",
-            "category",           
-            "index",     
-       ]
-       
-       $mainDiv = $("#" + appId);
-       for (i = views.length; i--;) {
-            viewDiv = document.createElement("div");
-            viewDiv.setAttribute("class","moo-panel");
-            viewDiv.setAttribute("id",views[i]);
-            $mainDiv.el.appendChild(viewDiv);
-       }
-                      
-       /*
-        * Navigation init
-        */        
-       nav = $mainDiv.nav();             
-       nav.header.navLinks = $(nav.header.el).find(".moo-nav");
-       for (i = nav.header.navLinks.length;i--;) {
-            navLinkName = nav.header.navLinks[i].id;
-            nav.header.navLinks[navLinkName] = nav.header.navLinks[i];           
-       }      
-
-       /*
-        * Create App
-        */
-       app = $.app({
-           id: appId,
-           path: "views",
-           views: views,
-           nav: nav
-       });
-       
-       /*
-        * Settings
-        */
-        
-       app.settings = {
-           debug: true
-       };
-
-       $.extend({
-           /*
-            * Pre-load views
-            */   
-           preload: function(id, options) {
-                var view = app.get(id),
-                    navInstance = nav.get(id);
-                
-                app.load(
-                     view,
-                     navInstance
-                );              
-           },
-           /*
-            * Go to view (load nav / app view)
-            */   
-           go: function(id, options) {
-                app.modSidebar.hide();
-                if (options !== undefined) {
-                    if (options.direction !== undefined) {
-                        nav._config.direction = options.direction;                                        
-                    } else {
-                        nav._config.direction = 0;                                        
-                    }
-                } else {
-                    nav._config.direction = 0;                    
-                }
-                nav.set(id);
-           },
-           /*
-            * Preload and go to view
-            */   
-           preloadAndGo : function(id, options) {
-               app.preload(id);
-               app.go(id);
-           }
-           
-       }, app);
-
-        /*
-         * Modules
-         */
-       
-       // FIXME CHECK
-       var loadModules = function() {
-        
-            var i,
-                modules,
-                callback,
-                loadModule;
+    app.route("^$", app.view("index"));
+    
+    Mod = function(name) {
+        var path = 'views/mod/' + name + '/' + name,
+            self = this;
             
-            modules = [
-                {name: "mod-topbar",},
-                {name: "mod-comments",},
-                {name: "mod-story-list",js: false},
-                {name: "mod-story",html: false},
-                {name: "mod-modal",html: false},
-                {name: "mod-reply"},
-                {name: "mod-login"},
-                {name: "mod-signup"},
-                {name: "mod-sidebar"},
-                {name: "mod-category", html: false},
-                {name: "mod-my-account"},
-                {name: "mod-vote", html: false},
-            ]
+        this.name = name;
             
-            loadModule = function(module) {
+        $.get(path + '.html', function(response) {
+
+            self.html = response;
+
+            var script = document.createElement("script");
+            script.src =  path + '.js';
+            document.head.appendChild(script);
+            script.addEventListener("load", function() {
+                Mootor.Event.dispatch(name + ":ready", this);
+                self._ready = true;
+            });
+            self.script = script;
+
+            var css = document.createElement("link");
+            css.href =  path + '.css';
+            document.head.appendChild(css);
+            self.css = css;
             
-                var loadJs = function(module) {
-                    if (module.name !== undefined && module.js !== false) {
-                        $.require("views/mod/" +  module.name + "/" + module.name  + ".js")
-                    }
-                }
- 
-                if (module.html !== false) {
-                    $.ajax({
-                        url: "views/mod/" +  module.name + "/" + module.name + ".html",
-                        callback: function(response) {
-                            if ($[module.name] === undefined) {
-                                $[module.name] = {};
-                            }
-                            $[module.name].html = response;
-                            // FIXME CHECK
-                            window.setTimeout(function() {
-                                loadJs(module);                        
-                            }, 5);
-                        }
-                    });
-                    
-                } else {
-                    loadJs(module);
-                }
- 
+        });
+    }
+    
+    Mod.prototype = {
+        _ready: false,
+        html: "",
+        css: {},
+        script: {},
+        on: function(event, callback) {
+            Mootor.Event.on(this.name + ":" + event, callback);
+            if (this._ready === true) {
+                Mootor.Event.dispatch(this.name + ":ready", this);
             }
-            
-            for (i = 0; i < modules.length; i++) {
-                if (modules[i])
-                loadModule(modules[i])
-            }
-
         }
-        
-        // Preload all views
-        for (i = views.length; i--;) {
-           app.preload(views[i]);   
-        }
-
-        loadModules();
-                
-   });
-   
-}(Mootor));
-
-
-
+    }
+    
+    m.app._mod = {
+        Story: new Mod("mod-story"),
+        StoryList: new Mod("mod-story-list"),
+        Topbar: new Mod("mod-topbar"),
+    };
+    
+}(window.Zepto));

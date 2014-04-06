@@ -1,0 +1,26 @@
+<div class='story-view'>
+  <div id='story-mod'>
+    <h2 class='title' data-bind='text: story.title'></h2>
+    <div class='pop' data-bind='text: story.pop' id='story-mod-pop'></div>
+    <div class='story-wrapper'>
+      <div class='user'>
+        <span class='user-avatar'>
+          <img data-bind='attr: {src: story.user.avatar}'>
+        </span>
+        <span class='user-nickname' data-bind='text: story.user.nickname'></span>
+        to
+        <span class='category' data-bind='text: story.category.title'></span>
+        ,
+        <span class='data' data-bind='text: story.date'></span>
+        ago
+      </div>
+      <div class='story-content'>
+        <div class='picture'>
+          <img data-bind='attr: {src: story.picture}'>
+        </div>
+        <p class='description' data-bind='text: story.description'></p>
+      </div>
+    </div>
+  </div>
+  <div id='story-mod-comments'></div>
+</div>

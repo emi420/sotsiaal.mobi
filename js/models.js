@@ -4,13 +4,30 @@
     
       "use strict";
        
-       var app = $("main").app(),
+       var app = m.app,
            Model,
            ViewModel,
            Story,
            User,
            Vote,
-           Category;
+           Category,
+           _data = {};
+           
+           
+       $.extend(m.app, {
+           data: {
+               set: function(key, value) {
+                   if (value !== undefined) {
+                        _data[key] = value;
+                   }
+               }, 
+               
+               get: function(key) {
+                   return _data[key];
+               }
+           }
+       });
+            
 
        /*
         * Models
@@ -45,7 +62,7 @@
         
        // .all()
        
-       $.extend({
+       $.extend(app.models.Story, {
             getAll: function(options) {
                 var result;
     
@@ -103,7 +120,7 @@
                 }
            },
        
-       }, app.models.Story)
+       });
        
        // Vote
        
@@ -137,7 +154,7 @@
             localStoragePrefix: "sotsiaal-category"
        });
 
-       $.extend({
+       $.extend(app.models.Category, {
 
             getAll: function(options) {
                 var result;
@@ -156,7 +173,7 @@
                 }          
             }
        
-       }, app.models.Category)
+       });
        
        // User
        
@@ -175,7 +192,7 @@
             localStoragePrefix: "sotsiaal-user"
        });
        
-       $.extend({
+       $.extend(app.models.User, {
             getCurrent: function() {
                 return app.data.get("currentUser");
             },
@@ -193,7 +210,7 @@
             logout: function() {
                 app.data.unset("currentUser");
             }
-       }, app.models.User);
+       });
        
        // Comment
        
@@ -219,7 +236,7 @@
             localStoragePrefix: "sotsiaal-comment"
        });
       
-       $.extend({
+       $.extend(app.models.Comment, {
             _filter: app.models.Comment.filter,
 
             filter: function(options) {
@@ -239,18 +256,19 @@
                 }          
             }
        
-       }, app.models.Comment)
+       });
                      
        /*
         * View model & data binding
         */        
     
        ViewModel = function(options) {
-           this[options.model] = options.data;
-           $.extend(options.handlers, this);
+           this[options.model] = options.data[options.model];
+           $.extend(this, options.handlers);
+           
        };
     
-       $.extend({
+       $.extend(app.models, {
             /*
              * Bind data
              */
@@ -267,13 +285,11 @@
                     model = i;
                 }
                 
+                
                 ko.applyBindings(
                     new ViewModel({
                         model: model,
-                        data: app.data.set(
-                           model,
-                           data[model]
-                        ),
+                        data: data,
                         handlers: handlers
                     }),
                     element                 
@@ -299,9 +315,9 @@
                               -1 : 1)
            }
            
-       }, app.models);
+       });
           
    });
    
    
-}(Mootor));
+}(window.Zepto));
