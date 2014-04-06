@@ -63,6 +63,7 @@
        // .all()
        
        $.extend(app.models.Story, {
+           
             getAll: function(options) {
                 var result;
     
@@ -95,6 +96,7 @@
             },
 
            loadForeign: function(data) {
+               
                 var i,
                     item,
                     isArray = true;
@@ -103,14 +105,19 @@
                     data = [data];
                     isArray = false;
                 }
-                    
                 for (i = data.length; i--;) {
                     item = data[i];
                     item.commentsCount = app.models.Comment.filter({
                         story: item
                     }).length;
-                    item.category = app.models.Category.get(item.category);
-                    item.user = app.models.User.get(item.user);                                
+                    
+                    if (typeof item.category !== "object") {
+                        item.category = app.models.Category.get(item.category);
+                    }
+                    if (typeof item.user !== "object") {
+                        item.user = app.models.User.get(item.user);                                
+                    }
+
                 }
                 
                 if (isArray === true) {
@@ -121,6 +128,13 @@
            },
        
        });
+       
+       app.models.Story._get = app.models.Story.get;
+       app.models.Story.get = function(id) {
+           var result = app.models.Story._get(id);
+           result = this.loadForeign(result);
+           return result;
+       }
        
        // Vote
        

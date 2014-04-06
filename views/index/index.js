@@ -1,5 +1,7 @@
 (function($) {
     
+    "use strict";
+    
     var app = m.app,
         modStoryList = m.app._mod.StoryList,
         modTopbar = m.app._mod.Topbar,

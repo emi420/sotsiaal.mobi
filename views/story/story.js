@@ -1,39 +1,26 @@
 (function($) {
+    
+    "use strict";
 
-    var nav = $("#main").nav(),
-        app = $("main").app(),
-        view = nav.get("story"),
+    var app = m.app,
         $storyMod = $("#story-mod"),
         $storyModComments = $("#story-mod-comments"),
-        $navSearch = $(nav.header.navLinks.navSearch),
-        $navCreate = $(nav.header.navLinks.navCreate),
-        $navPost = $(nav.header.navLinks.navPost);
+        modStory = m.app._mod.Story;
         
-    
-    $.extend({
-        
-        init: function() {
-            // Set onLoad callbacks
-            $storyModComments.html($["mod-comments"].html);
-            view.modStory = app.modStory();
-        },
-        
-        onLoad: function() {
-            $navSearch.hide();            
-            $navCreate.show();
-            $navPost.hide();
-            view.modStory.bindData($storyMod[0]);
-            app.modComments.bindData();
-        },
-                    
-    }, view);
-    
-    // Initialize view
-    view.init()
+    m.app.view("story").on("load", function(self) {
+        // Get story
+        ko.cleanNode($storyMod[0]);
+        modStory.applyBindings(
+            m.app.models.Story.get(self.params[0]),
+            $storyMod[0]
+        )
+    });
 
-    /*
-     * modVote connector
-     */     
+
+    
+/*    $storyModComments.html($["mod-comments"].html);
+    app.modComments.bindData();
+
     $("#story-mod-pop").onTapEnd(function() {
 
         app.modLogin.authRequired(
@@ -52,6 +39,6 @@
         );
 
     });
-
+*/
     
-}(Mootor));
+}(window.Zepto));

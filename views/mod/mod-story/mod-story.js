@@ -26,19 +26,9 @@
         /*
          * Bind data
          */         
-        bindData: function(element) {
-            var currentStory = app.data.get("currentStory");
-            
-            this.el = element;
-
-            if (currentStory === undefined) {
-                currentStory = app.models.Story.create({});
-            }
-
+        applyBindings: function(story, element) {
             app.models.applyBindings(
-                { 
-                    story: currentStory 
-                },
+                { story: story },
                 element
             );
         },
@@ -122,7 +112,6 @@
         
         handlers: {
             go: function(story) {
-                console.log("here!");
                 app.go("#story/" + story.id);
             },
         },
@@ -132,10 +121,10 @@
          */         
         updateBindings: function(data) {
             var i;
-            //this.data.removeAll();
-            //for (i xs= 0; i < data.length; i++) {
-            //    this.data.push(data[i]);
-            //}; 
+            /*this.data.removeAll();
+            for (i = 0; i < data.length; i++) {
+                this.data.push(data[i]);
+            };*/ 
         },        
                 
         /*

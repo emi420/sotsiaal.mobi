@@ -5,13 +5,24 @@
     var app,
         Mod;
 
+    // Routes
+
     app = m.app({
         views: [
             "index"
         ]
     }).init();
-
+    
+    
+    // Routes
+    
     app.route("^$", app.view("index"));
+    app.route("^#story/(.*)$", app.view("story"));
+    
+    
+    /*
+     * Modules support
+     */
     
     Mod = function(name) {
         var path = 'views/mod/' + name + '/' + name,
