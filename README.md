@@ -1,19 +1,18 @@
-# Sotsiaal mobile - a social news client
+# Sotsiaal mobile - a social client
 
-# Requirements
+# Install & run
 
-Clone Mootor HTML5 framework and checkout the 'experimental' branch:
+1. Clone this project:
 
-* $ git clone https://github.com/emi420/Mootor.git mootor
-* $ cd mootor
-* $ git checkout experimental
+$ clone https://github.com/emi420/sotsiaal.mobi/
 
-Also, you will need the following tools:
+2. Download and unpack Mootor:
 
-* Haml for compile .haml templates
-* Ruby & Compass Framework for compile .scss stylesheets
+$ cd sotsiaal.mobi
+$ wget -o https://codeload.github.com/emi420/Mootor/tar.gz/dist
+$ tar zxf Mootor-dist.tar
 
-For testing, you can use Chrome, Safari, Firefox or a mobile device with a Webkit-based browser (we're working on that, Mozilla)
+3. Run on a web server.
 
 # How can I help?
 
