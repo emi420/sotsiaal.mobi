@@ -2,7 +2,7 @@
 
     "use strict";
     
-    var app = $("main").app(),
+    var app = m.app,
         ModComments,
         modComments,
         modReply = {},
@@ -14,14 +14,7 @@
      */
              
     var ModComments = function() {
-        $storyModComments = $("#story-mod-comments");
-        storyComment = app.models.observableArray([]);
-        app.models.bind(
-             {"storyComment": storyComment},
-             $storyModComments[0]
-        );        
-        modReply.init(this);
-        return this;
+        ModComments.init(this);
     }
     
     ModComments.prototype = {
@@ -32,9 +25,9 @@
             ).success(            
                 function(comments) {
                     var i;
+                    
                     storyComment.removeAll();
                     for (i = 0; i < comments.length; i++) {
-                        comments[i].user = app.models.User.get(comments[i].user);
                         storyComment.push(comments[i]);
                     }
                 }
@@ -42,45 +35,65 @@
         },    
     }
     
+    ModComments.init = function(self) {
+        $storyModComments = $("#story-mod-comments");
+        storyComment = app.models.observableArray([]);
+        app.models.bind(
+             {"storyComment": storyComment},
+             $storyModComments[0]
+        );      
+        Mootor.Event.dispatch("ModComments:ready", self);
+    }
+    
+    Mootor._Comments = ModComments;
+    
+    Mootor.Event.extend(ModComments);
+    
     /*
      * modReply connector
      */
-    $.extend({
+    $.extend(m.app._mod.Reply, {
 
-        init: function(self) {
-            $("#mod-comments-writehere").onTapEnd(function() {
+        init: function() {
 
+            $("#mod-comments-writehere").on("tap click", function() {
+                
                 var showReplyModal,
                     currentUser;
                     
+                Mootor._Reply.init(m.app._mod.Reply);
+                    
                 showReplyModal = function() {
-                    if (app.modReply.onSend === undefined) {
-                        app.modReply.onSend = function() {
-                            app.modComments.bindData();
+                    if (m.app._mod.Reply.onSend === undefined) {
+                        m.app._mod.Reply.onSend = function() {
+                            m.app._mod.Comments.bindData();
                         }
                     }
-                    app.modReply.clear();
-                    app.modReply.modal.show();
-                    app.modReply.focus();                    
+                    m.app._mod.Reply.clear();
+                    m.app._mod.Reply.modal.show();
+                    m.app._mod.Reply.focus();                    
                 };
                 
-                app.modLogin.authRequired(
+                showReplyModal(); 
+               
+                /*app.modLogin.authRequired(
                     function() {
                         showReplyModal();                                            
                     }
-                );
+                );*/
 
             });
         },
                     
-    }, modReply);
+    });
 
     /*
      * Initialize module
      */
     modComments = new ModComments();
+
     // Go public
-    $.extend({modComments: modComments}, app);    
+    $.extend(m.app._mod.Comments, ModComments.prototype);
 
 
-}(Mootor));
+}(window.Zepto));

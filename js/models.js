@@ -226,6 +226,10 @@
             }
        });
        
+       // Sample user
+       app.data.set("currentUser",1 );
+       
+       
        // Comment
        
        Comment = function(options) {
@@ -254,15 +258,46 @@
             _filter: app.models.Comment.filter,
 
             filter: function(options) {
-                var result;
-    
+                var result,
+                    i;
+
                 // TODO: Get from API
                 result = app.models.Comment._filter(options);
+
+                debugger;
+                result = this.loadForeign(result);
+
                 this._delayedSuccess = true;
                 this.cache = result;
                 return this;
             },
-            
+
+
+
+            loadForeign: function(data) {
+               
+                 var i,
+                     item,
+                     isArray = true;
+                    
+                 if ($.isArray(data) === false) {
+                     data = [data];
+                     isArray = false;
+                 }
+                 for (i = data.length; i--;) {
+                     item = data[i];
+                     if (typeof item.user !== "object") {
+                         item.user = app.models.User.get(item.user);                                
+                     }
+
+                 }
+                
+                 if (isArray === true) {
+                     return data;                
+                 } else {
+                     return data[0];
+                 }
+            },            
             success: function(callback) {
                 this._success = callback;
                 if (this._delayedSuccess === true) {

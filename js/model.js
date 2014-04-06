@@ -101,7 +101,7 @@
     
         // Save
         save: function(obj) {
-    
+                
             var strObj,
                 prefix = this.localStoragePrefix;
 

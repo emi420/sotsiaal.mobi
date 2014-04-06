@@ -13,7 +13,6 @@
         ]
     }).init();
     
-    
     // Routes
     
     app.route("^$", app.view("index"));
@@ -64,10 +63,17 @@
         }
     }
     
+
+    // Load modules
+    
     m.app._mod = {
+        Comments: new Mod("mod-comments"),
+        Modal: new Mod("mod-modal"),
+        Reply: new Mod("mod-reply"),
         Story: new Mod("mod-story"),
         StoryList: new Mod("mod-story-list"),
         Topbar: new Mod("mod-topbar"),
     };
+    
     
 }(window.Zepto));

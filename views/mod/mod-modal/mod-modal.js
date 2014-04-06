@@ -6,18 +6,20 @@
 
     "use strict";
     
-    var app = $("main").app(),
+    var app = m.app,
         Modal,
         modModal;
     
     Modal = function(options) {
-        options = options === undefined ? {} : options;
-        Modal.initHTML(this, options);
-        Modal.setTouchEvents(this);
-        return this;
+        Modal.init(options, this);
     }
     
-    $.extend({
+    $.extend(Modal, {
+        init: function(options, self) {
+            options = options === undefined ? {} : options;
+            Modal.initHTML(self, options);
+            Modal.setTouchEvents(self);
+        },
         initHTML: function(self, options) {
             var el,
                 className;
@@ -27,38 +29,36 @@
             document.body.appendChild(el);
             self.el = el;
             self.$el = $(el);
-            self.$el.setClass(className);
+            self.$el.addClass(className);
             if (options.html) {
                 self.$el.html(options.html);
             }
             self.$el.hide();   
-            self.overlay = $.ui.overlay();
+            //self.overlay = $.ui.overlay();
         },
         setTouchEvents: function(self) {
-            $(self.overlay.el).onTapEnd(function() {
+            /*$(self.overlay.el).on("tap ckick")(function() {
                 self.hide();
-            });
+            });*/
         }
-    }, Modal);
+    });
+    
+    Mootor._Modal = Modal;
     
     Modal.prototype = {
         html: function(html) {
             this.$el.html(html);
         },
         show: function() {
-            this.overlay.show();
+            //this.overlay.show();
             this.$el.show();
         },
         hide: function() {
-            this.overlay.hide();
+            //this.overlay.hide();
             this.$el.hide();            
         },
     }
-    
-    modModal = function(options) {
-        return new Modal(options);
-    }
-    
-    $.extend({modModal: modModal}, app);    
 
-}(Mootor));
+    $.extend(m.app._mod.Modal, Modal.prototype);
+
+}(window.Zepto));

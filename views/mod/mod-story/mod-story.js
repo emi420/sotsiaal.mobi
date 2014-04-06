@@ -20,8 +20,6 @@
     }
     
     ModStory.prototype = {
-    
-        el: {},
         
         /*
          * Bind data
@@ -75,7 +73,7 @@
 
 
                 for (i = 0; i < 5; i++) {
-                    story = app.models.Story.create({
+                   try{ story = app.models.Story.create({
                         title: "This is my story, my story number " + i,
                         pop: i,
                         date: "2d",
@@ -85,7 +83,7 @@
                         user: user,
                         category: category1,
                     });
-                    story.save();
+                    story.save();} catch(e) {debugger;}
                 }
 
                 story = app.models.Story.create({
@@ -107,7 +105,7 @@
                     pop: "14",
                     story: story
                 });
-                comment.save();            
+                comment.save();             
         },
         
         handlers: {
@@ -121,10 +119,10 @@
          */         
         updateBindings: function(data) {
             var i;
-            /*this.data.removeAll();
+            this.data.removeAll();
             for (i = 0; i < data.length; i++) {
                 this.data.push(data[i]);
-            };*/ 
+            };
         },        
                 
         /*
@@ -132,13 +130,13 @@
          */         
         bindData: function(element, data) {
 
-            this.data = story;
-            var story = ko.observableArray(data);
-            story.showEmptyMsg = "";
-            story.showList = "visible";
+            var stories = ko.observableArray(data);
+            this.data = stories;
+            stories.showEmptyMsg = "";
+            stories.showList = "visible";
             
             m.app.models.bind(
-                {story: story},
+                {story: stories},
                 $("#index-mod-story-list")[0],
                 this.handlers
             )

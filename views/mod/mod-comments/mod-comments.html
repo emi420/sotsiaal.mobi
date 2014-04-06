@@ -1,0 +1,53 @@
+<h3 class='title-comments'>
+  <span class='title-comments-count' data-bind='text: storyComment().length'></span>
+  <span data-bind='if: storyComment().length &lt; 2'>
+    comment
+  </span>
+  <span data-bind='if: storyComment().length &gt; 1'>
+    comments
+  </span>
+</h3>
+<div class='mod-comments mod-comments-writehere' id='mod-comments-writehere'>
+  <ul>
+    <li>
+      <div class='mod-comment-avatar'>
+        <span class='user-avatar'>
+          <img src='img/tmp/avatar.jpg'>
+        </span>
+      </div>
+      <div class='mod-comments-comment'>
+        <span class='mod-comments-text'>
+          Write here ...
+        </span>
+      </div>
+    </li>
+  </ul>
+</div>
+<div class='mod-comments' data-bind='foreach: storyComment'>
+  <ul>
+    <li>
+      <div class='mod-comment-avatar'>
+        <span class='user-avatar'>
+          <img data-bind='attr: {src: user.avatar}'>
+        </span>
+      </div>
+      <div class='mod-comments-comment'>
+        <span class='mod-comments-text' data-bind='text: text'></span>
+        <span class='mod-comments-picture'>
+          <img data-bind='attr: {src: picture}'>
+        </span>
+        <div class='mod-comments-details'>
+          <span class='mod-comments-pop-sign' data-bind='if: parseInt(pop) &lt; 0'>
+          </span>
+          <span class='mod-comments-pop-sign' data-bind='if: parseInt(pop) &gt; -1'>
+            +
+          </span>
+          <span class='mod-comments-pop' data-bind='text: pop'></span>
+          <!--  -->
+          <span class='mod-comments-user' data-bind='text: user.nickname'></span>
+          <span class='mod-comments-date' data-bind='text: date'></span>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
