@@ -6,18 +6,18 @@
 
     "use strict";
     
-    var app = $("main").app(),
+    var app = m.app,
         ModVote,
         modVote;
                 
     var ModVote = function() {
-        return this;
+        // code here
     }
     
     ModVote.prototype = {
     
         send: function(options) {
-            if (app.models.Vote.filter({user: app.models.User.getCurrent()}).length === 0) {
+            //if (app.models.Vote.filter({user: app.models.User.getCurrent()}).length === 0) {
                 var vote = app.models.Vote.create({
                     value:  options.value,
                     story:  app.data.get("currentStory"),
@@ -25,7 +25,7 @@
                 })
                 vote.save();                
                 this._delayedSuccess = true;
-            }
+           // }
             return this;
         },
         
@@ -40,6 +40,6 @@
     modVote = new ModVote();
     
     // Public modules
-    $.extend({modVote: modVote}, app);
+    $.extend(m.app._mod.Vote, ModVote.prototype);
     
-}(Mootor));
+}(window.Zepto));

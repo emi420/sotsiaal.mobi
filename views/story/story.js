@@ -31,24 +31,33 @@
         
     });
     
-/*    $("#story-mod-pop").onTapEnd(function() {
+    app._mod.Story.on("ready", function() {
+        
+        $("#story-mod-pop").on("tap click", function() {
 
-        app.modLogin.authRequired(
-            function() {
+            //app.modLogin.authRequired(
+            //    function() {
 
-                app.modVote.send({
-                    value: 1
-                }).success(function() {
-                    var story = app.data.get("currentStory");
-                    story.pop += 1;
-                    story.put();
-                    view.modStory.bindData(view.modStory.el);
-                });
+                    app._mod.Vote.send({
+                        value: 1
+                    }).success(function() {
+                        var story = app.data.get("currentStory");
+                        story.pop += 1;
+                        story.put();
+                        ko.cleanNode($storyMod[0]);
+                        modStory.applyBindings(
+                            story,
+                            $storyMod[0]
+                        );
+                    });
 
-            }
-        );
+                    //}
+                //);
 
+        });
+        
     });
-*/
+    
+
     
 }(window.Zepto));

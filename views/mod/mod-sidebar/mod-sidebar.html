@@ -1,0 +1,69 @@
+<div class='mod-sidebar'>
+  <ul class='mod-sidebar-topbar'>
+    <li>
+      <a href='#topics' id='mod-sidebar-topbar-nav1'>
+        <span>
+          Topics
+        </span>
+      </a>
+    </li>
+    <li style="display:none">
+      <a href='#my-account' id='mod-sidebar-topbar-nav2'>
+        <span>
+          My account
+        </span>
+      </a>
+    </li>
+  </ul>
+  <ul class='mod-sidebar-navbar' id='mod-sidebar-navbar-myaccount' style='display:none'>
+    <li>
+      <a href='#published-stories'>
+        <span>
+          Published stories
+        </span>
+      </a>
+    </li>
+    <li>
+      <a href='#voted-stories'>
+        <span>
+          Voted stories
+        </span>
+      </a>
+    </li>
+    <li>
+      <a href='#following'>
+        <span>
+          Following
+        </span>
+      </a>
+    </li>
+    <li>
+      <a href='#followers'>
+        <span>
+          Followers
+        </span>
+      </a>
+    </li>
+    <li>
+      <a href='#profile'>
+        <span>
+          Profile
+        </span>
+      </a>
+    </li>
+    <li>
+      <a href='#options'>
+        <span>
+          Options
+        </span>
+      </a>
+    </li>
+  </ul>
+  <ul class='mod-sidebar-navbar' data-bind='foreach: category' id='mod-sidebar-navbar-category'>
+    <li>
+      <a data-bind='click: $parent.go' href='#category'>
+        <span data-bind='text: title'></span>
+      </a>
+    </li>
+  </ul>
+</div>

@@ -70,15 +70,6 @@
 }
 
 /* line 11, ../mootor/source/_sass/_mootor.nav.scss */
-body, html {
-  height: 100%;
-  background: #ccc;
-  overflow-x: hidden;
-  overflow-y: hidden;
-  max-width: 100%;
-  width: 100%;
-  max-height: 100%;
-}
 
 /* line 25, ../mootor/source/_sass/_mootor.nav.scss */
 nav ul,
@@ -382,12 +373,12 @@ nav.app {
 
 /* line 10, default/_nav.scss */
 h1 {
-  color: white;
+/*  color: white;
   font-weight: 100;
   left: 15%;
   width: 60% !important;
   z-index: 9998;
-  position: absolute;
+  position: absolute;*/
 }
 
 /* line 22, default/_nav.scss */
@@ -731,7 +722,6 @@ body {
 /* line 132, default/_nav.scss */
 .m-panel {
   background: white url(../img/default/nav-panels-panel.png);
-  box-shadow: -1px -3px 6px black;
 }
 
 /* line 5, default/_ui.scss */
@@ -1620,6 +1610,7 @@ body {
   padding: 2.5em 0 0 2em;
   text-align: left;
   color: #fff;
+  top: 50px;
 }
 /* line 11, default/_mod-sidebar.scss */
 .mod-sidebar .mod-sidebar-topbar {

@@ -264,7 +264,6 @@
                 // TODO: Get from API
                 result = app.models.Comment._filter(options);
 
-                debugger;
                 result = this.loadForeign(result);
 
                 this._delayedSuccess = true;
@@ -324,7 +323,7 @@
             bind: function(data, element, handlers) {                        
                 var i,
                     model;
-                    
+                                
                 if (handlers === undefined) {
                     handlers = {};
                 }
@@ -353,8 +352,9 @@
                return ko.observable(value);
            },
            
-           applyBindings: function(values, viewModel) {
-               return ko.applyBindings(values, viewModel);
+           applyBindings: function(viewModel, element) {
+               ko.cleanNode(element);
+               return ko.applyBindings(viewModel, element);
            },
            
            sort: function(left, right) {

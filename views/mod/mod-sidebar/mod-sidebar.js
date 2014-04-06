@@ -6,106 +6,92 @@
 
     "use strict";
     
-    var app = $("main").app(),
-        $nav = $("#main"),
-        nav = $nav.nav(),
-        navCurrent = function() { return nav.items[nav.current] },
-        modCategoryIsInitialized = false,
+    var app = m.app,
         Sidebar,
         sidebar;
     
     Sidebar = function(options) {
-        options = options === undefined ? {} : options;
-        Sidebar.initHTML(this, options);
-        return this;
+        Sidebar.init(options, this);
     }
     
-    $.extend({
-        initHTML: function(self, options) {
+    $.extend(Sidebar, {
+        
+        init: function(self) {
+            Sidebar.initHTML(self);
+        },
+        
+        initHTML: function(self) {
             var el,
                 className;
             
             el = document.createElement("div");
-            className = options.className === undefined ? "mod-sidebar" : options.className;
+            className = "mod-sidebar";
             document.body.insertBefore(el, document.body.firstChild);
             self.el = el;
             self.$el = $(el);
-            self.$el.setClass(className);
-            if (options.html) {
-                self.$el.html(options.html);
-            }
+            self.$el.addClass(className);
+            self.hide();
         },
-    }, Sidebar);
+    });
     
     Sidebar.prototype = {
-        x: 0,
         show: function() {
             this.$el.show();
         },
         hide: function() {
             this.$el.hide();
         },
-        html: function(html) {
+        _html: function(html) {
             this.$el.html(html);
         }
     }
     
-    sidebar = new Sidebar({html: $['mod-sidebar'].html});
+    
+    Mootor._Sidebar = Sidebar;
+    
+    var distX = 0,
+        lastX;
         
-    $.extend({modSidebar: sidebar}, app);  
-    
-    var navX = 0,
-        navY = 0;
-    
-    $nav.onDragStart(function(gesture) {
+    app.on("ready", function(self) {
 
-        // modCategory connector
-        if (modCategoryIsInitialized === false) {
-            app.modCategory.bindData($("#mod-sidebar-navbar-category"));        
-            modCategoryIsInitialized = true;
-        }
-
-        if (gesture.distanceFromOriginX > 10 || gesture.distanceFromOriginX < -10) {
-            sidebar.show();
-            navCurrent().movable = false;
-        } else {
-            if (navX < 10) {
-                navCurrent().movable = true;
-                sidebar.hide();                
-            }
-        }
-
-    })
+        app.ui.$el.on("touchstart", function(e) {
+            lastX = e.touches[0].clientX;
+        })
     
-    $nav.onDragMove(function(gesture) {
-        var maxdist = $.view.clientW/1.3,
-            x;
+        app.ui.$el.on("touchmove", function(e) {
+            distX += e.touches[0].clientX - lastX;
+            lastX = e.touches[0].clientX;
+            app.ui.$el.css("-webkit-transform", "translateX(" + distX + "px);")
+        });
         
-        if (navCurrent().movable === false) {
-            x = navX + (gesture.x - gesture.lastX);
-            $nav.translate({x:x,y:0});
-    
-            if (x < 0) {
-                $nav.translate({x:0,y:0});
-                navX = 0;            
-            } else if (x > maxdist) {
-                $nav.translate({x:maxdist,y:0});
-                navX = maxdist;            
+        app.ui.$el.on("touchend", function(e) {
+            if (distX < m.context.viewport.width/2) {
+                distX = 0;
+                app.ui.$el.css("-webkit-transform", "translateX(" + distX + ");")
+                sidebar.hide();
             } else {
-                navX = x;                        
-            }                               
-        }
+                distX = m.context.viewport.width - 100;
+                app.ui.$el.css("-webkit-transform", "translateX(" + distX + "px);")
+                sidebar.show();
+            }
+        });
+        
         
     });
     
-    $("#mod-sidebar-topbar-nav1").onTapEnd(function() {
-    });
-
-    $("#mod-sidebar-topbar-nav2").onTapEnd(function() {
-        app.modMyAccount.modal.show();
-        app.modMyAccount.focus();
-        app.modMyAccount.onLoad();
-    });
     
+    $.extend(m.app._mod.Sidebar, Sidebar.prototype);
+    sidebar = m.app._mod.Sidebar;
 
-}(Mootor));
+    m.app._mod.Sidebar.on("ready", function(self) {
+        Sidebar.init(m.app._mod.Sidebar);
+        m.app._mod.Sidebar.$el.html(m.app._mod.Sidebar.html);
+        m.app._mod.Category.on("ready", function() {
+            m.app._mod.Category.bindData(
+                $("#mod-sidebar-navbar-category")[0]
+            );
+        });
+    });
+
+ 
+}(window.Zepto));

@@ -32,6 +32,7 @@
         $.get(path + '.html', function(response) {
 
             self.html = response;
+            
 
             var script = document.createElement("script");
             script.src =  path + '.js';
@@ -73,6 +74,9 @@
         Story: new Mod("mod-story"),
         StoryList: new Mod("mod-story-list"),
         Topbar: new Mod("mod-topbar"),
+        Vote: new Mod("mod-vote"),
+        Category: new Mod("mod-category"),
+        Sidebar: new Mod("mod-sidebar"),
     };
     
     
