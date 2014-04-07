@@ -8,15 +8,14 @@
     // Routes
 
     app = m.app({
-        views: [
-            "index"
-        ]
+        views: ["index"]
     }).init();
     
     // Routes
     
     app.route("^$", app.view("index"));
     app.route("^#story/(.*)$", app.view("story"));
+    app.route("^#category/(.*)$", app.view("category"));
     
     
     /*

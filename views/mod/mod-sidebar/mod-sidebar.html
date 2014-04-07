@@ -1,7 +1,7 @@
 <div class='mod-sidebar'>
   <ul class='mod-sidebar-topbar'>
     <li>
-      <a href='#topics' id='mod-sidebar-topbar-nav1'>
+      <a id='mod-sidebar-topbar-nav1'>
         <span>
           Topics
         </span>
@@ -60,8 +60,8 @@
     </li>
   </ul>
   <ul class='mod-sidebar-navbar' data-bind='foreach: category' id='mod-sidebar-navbar-category'>
-    <li>
-      <a data-bind='click: $parent.go' href='#category'>
+    <li data-bind='click: $parent.go'>
+      <a>
         <span data-bind='text: title'></span>
       </a>
     </li>

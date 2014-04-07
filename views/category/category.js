@@ -1,67 +1,34 @@
 (function($) {
-
-    var nav = $("#main").nav(),
-        app = $("main").app(),
-        view = {},
-        navItemName = "category",
-        navItem = nav.get(navItemName),
-        categoryTitle = "";
     
-    view = {
+    "use strict";
+    
+    var app = m.app,
+        modStoryList = m.app._mod.StoryList,
+        story;
+    
+    m.app.view("category").on("ready", function(self) {
         
-        init: function() {
-        
-            $("#category-mod-story-list").html($["mod-story-list"].html);
-
-            app.models.bind(
-                {"categoryTitle": categoryTitle},
-                $("#mod-category-title")[0]
-            );
-            
-            view.storyList = app.modStory().list();
-
+        // Story List module
+        modStoryList.on("ready", function(self) {
+            $("#category-mod-story-list").html(self.html);
             // Bind data
-            view.storyList.bindData($("#category-mod-story-list")[0], []);
+            modStoryList.bindData($("#category-mod-story-list")[0], []);
+        });
 
-            // Set onLoad callbacks
-            navItem.onLoad = view.onLoad;
-            if(app.views[nav.current].id === navItemName) {
-                view.onLoad();               
-            }
-            
-            app.get(navItemName).storyList = view.storyList;
-            
-        },
+    }).on("load", function(self) {
         
-        updateHeader: function() {
-            $(nav.header.navLinks.navSearch).hide();
-            $(nav.header.navLinks.navCreate).show();
-            $(nav.header.navLinks.navPost).hide();            
-        },
+        var category = app.models.Category.get(self.params[0]);
         
-        bindData: function() {
-            var currentCategory = app.data.get("currentCategory");                
-            if (currentCategory) {
-                categoryTitle = currentCategory.title;            
-            }
-            app.models.applyBindings(
-                {"categoryTitle": categoryTitle},
-                $("#mod-category-title")[0]
-            );
-            
-            view.storyList.updateBindings(
-                app.models.Story.filter({category:currentCategory})
-            );           
-        },
-        
-        onLoad: function() {
-            view.updateHeader();
-            view.bindData();
-        },
-                    
-    }
-    
-    // Initialize view
-    view.init()
-            
-}(Mootor));
+        // Category title
+        app.models.applyBindings(
+            {"categoryTitle": category.title},
+            $("#mod-category-title")[0]
+        );
+
+        // Story list for category
+        var stories = app.models.Story.filter({category: category});
+        modStoryList.updateBindings(stories)             
+    });
+
+}(window.Zepto));
+

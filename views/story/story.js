@@ -10,7 +10,8 @@
         
     m.app.view("story").on("load", function(self) {
         // Get story
-        var story  = m.app.models.Story.get(self.params[0]); 
+        var story  = m.app.models.Story.getWithForeign(self.params[0])
+        
         app.data.set("currentStory", story);
         ko.cleanNode($storyMod[0]);
         modStory.applyBindings(

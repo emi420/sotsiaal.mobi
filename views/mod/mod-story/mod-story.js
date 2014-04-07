@@ -134,10 +134,10 @@
             this.data = stories;
             stories.showEmptyMsg = "";
             stories.showList = "visible";
-            
+            ko.cleanNode(element)
             m.app.models.bind(
                 {story: stories},
-                $("#index-mod-story-list")[0],
+                element,
                 this.handlers
             )
 

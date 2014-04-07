@@ -75,6 +75,12 @@
                 return this;
             },
             
+            getWithForeign: function(id) {
+                var result = app.models.Story.get(id);
+                result = this.loadForeign(result);
+                return result;
+            },
+            
             success: function(callback) {
                 this._success = callback;
                 if (this._delayedSuccess === true) {
@@ -95,7 +101,7 @@
                 return result;
             },
 
-           loadForeign: function(data) {
+            loadForeign: function(data) {
                
                 var i,
                     item,
@@ -128,13 +134,6 @@
            },
        
        });
-       
-       app.models.Story._get = app.models.Story.get;
-       app.models.Story.get = function(id) {
-           var result = app.models.Story._get(id);
-           result = this.loadForeign(result);
-           return result;
-       }
        
        // Vote
        

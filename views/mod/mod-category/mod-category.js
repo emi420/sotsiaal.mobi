@@ -1,6 +1,3 @@
-/*
- * Category
- */
  
 (function($) {
 
@@ -21,6 +18,7 @@
     Category.prototype = {
     
         bindData: function(element) {
+            var self = this;
             category = app.models.observableArray([]);
             app.models.Category.getAll().success(   
                 function(result) {
@@ -28,11 +26,10 @@
                     for (i = 0; i < result.length; i++) {
                         category.push(result[i]);
                     }
-                    console.log(category);
-                    console.log(element);
-                    m.app.models.applyBindings(
+                    m.app.models.bind(
                         {category: category},
-                        element
+                        element,
+                        self.handlers
                     )
                 }
             );
@@ -42,7 +39,7 @@
             go: function(category) {
                 if (m.app.view().id !== "category") {
                     app.data.set("currentCategory", category);
-                    app.go("#/category/" + category.id);                 
+                    app.go("#category/" + category.id);                 
                 } else {
                     /*app.get("category").storyList.updateBindings(
                         app.models.Story.filter({
