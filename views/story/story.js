@@ -34,7 +34,7 @@
     
     app._mod.Story.on("ready", function() {
         
-        $("#story-mod-pop").on("tap click", function() {
+        $("#story-mod-pop").on("tap", function() {
 
             //app.modLogin.authRequired(
             //    function() {

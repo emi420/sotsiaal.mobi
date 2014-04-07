@@ -61,11 +61,11 @@
         }
         
         m.app._mod.Reply.on("ready", function(self) {
-            $("#mod-reply-cancel").on("tap click", function() {
+            $("#mod-reply-cancel").on("tap", function() {
                 self.modal.hide();
             });
 
-            $("#mod-reply-send").on("tap click", function() {
+            $("#mod-reply-send").on("tap", function() {
                 self.send().success(function() {
                     self.modal.hide();
                     self.onSend();     
