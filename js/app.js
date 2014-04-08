@@ -78,7 +78,7 @@
         StoryList: new Mod("mod-story-list"),
         Vote: new Mod("mod-vote"),
         Category: new Mod("mod-category"),
-        Sidebar: new Mod("mod-sidebar"),
+        //Sidebar: new Mod("mod-sidebar"),
     };
     
     

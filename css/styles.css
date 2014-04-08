@@ -2,3 +2,7 @@
 .m-app .m-nav .m-nav-item {
     padding: .8em 0;    
 }
+
+.mod-modal, .m-panel {
+    font-size: .65em;
+}

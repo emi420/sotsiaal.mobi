@@ -145,6 +145,13 @@
                                     
     }
     
+    m.app.on("ready", function() {
+       var story = m.app.models.Story.get(1);
+       if (story === null) {
+           m.app._mod.StoryList.sampleData();
+       }
+    });
+    
     
     $.extend(m.app._mod.StoryList, ModStoryList.prototype);
     $.extend(m.app._mod.Story, ModStory.prototype);
