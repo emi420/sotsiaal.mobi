@@ -19,11 +19,6 @@
                 }
             )
         });
-        
-        // Topbar module
-        /*modTopbar = m.app._mod.Topbar.on("ready", function(self) {
-            $("#index-mod-topbar").html(self.html);
-        });*/
 
     }).on("load", function(self) {
         

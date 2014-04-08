@@ -113,9 +113,9 @@
                 }
                 for (i = data.length; i--;) {
                     item = data[i];
-                    item.commentsCount = app.models.Comment.filter({
-                        story: item
-                    }).length;
+                    item.commentsCount = app.models.Comment.countForStory(
+                        item.id
+                    );
                     
                     if (typeof item.category !== "object") {
                         item.category = app.models.Category.get(item.category);
@@ -301,6 +301,11 @@
                 if (this._delayedSuccess === true) {
                     this._success(this.cache);
                 }          
+            },
+            countForStory: function(id) {
+                return app.models.Comment._filter({
+                    story: id
+                }).length;
             }
        
        });

@@ -73,7 +73,6 @@
         Reply: new Mod("mod-reply"),
         Story: new Mod("mod-story"),
         StoryList: new Mod("mod-story-list"),
-        Topbar: new Mod("mod-topbar"),
         Vote: new Mod("mod-vote"),
         Category: new Mod("mod-category"),
         Sidebar: new Mod("mod-sidebar"),
