@@ -16,6 +16,7 @@
     app.route("^$", app.view("index"));
     app.route("^#story/(.*)$", app.view("story"));
     app.route("^#category/(.*)$", app.view("category"));
+    app.route("^#create$", app.view("story-create"));
     
     
     /*

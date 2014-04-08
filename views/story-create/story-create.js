@@ -1,95 +1,52 @@
 (function($) {
 
-    var nav = $("#main").nav(),
-        app = $("main").app(),
-        view = {},
-        navItemName = "story-create",
-        navItem = nav.get(navItemName),
-        $navSearch = $(nav.header.navLinks.navSearch),
+    var app = m.app,
         $modStoryCreateTitle = $("#mod-story-create-title"),
         $modStoryCreateTextarea = $("#mod-story-create-textarea"),
         story = {};
     
-    view = {
-        
-        init: function() {
-            // Set onLoad callbacks
-            navItem.onLoad = view.onLoad;
-            if(app.views[nav.current].id === navItemName) {
-                view.onLoad();               
-            }            
-        },
-        
-        onLoad: function() {
-            
-            // TODO: categories
-            var category = app.models.Category.get(1);
-            
-            if (
-                app.modLogin.authRequired(
-                    function() {
-                        app.go("story-create");                                     
-                    }
-                )
-            === false) {
-                return false;
-            }
-            
-            view.updateHeader();
+    // TODO: categories
+    var category = app.models.Category.get(1);
 
-            story = app.models.Story.create({
-                title:          "",
-                description:    "",
-                user:           app.models.User.getCurrent(),
-                picture:        "",
-                date:           "a moment",
-                pop:            0,
-                category:       category
-            });
-        },
+    m.app.view("story-create").on("load", function(self) {
         
-        updateHeader: function() {
-            $(nav.header.navLinks.navSearch).hide();
-            $(nav.header.navLinks.navCreate).hide();
-            $(nav.header.navLinks.navPost).show();              
-        }
-                    
-    }
-    
-    // Initialize view
-    view.init()
-    
-    $("#navPost").onTapEnd(function(){
+        story = app.models.Story.create({
+            title:          "",
+            description:    "",
+            user:           app.models.User.getCurrent(),
+            picture:        "",
+            date:           "a moment",
+            pop:            0,
+            category:       1
+        });
 
-        // TODO
-        var category = app.models.Category.get(1);
+    });
+    
+    $("#button-create-story").on("tap", function() {
 
         story.title = $modStoryCreateTitle[0].value;
         story.description = $modStoryCreateTextarea[0].value;
+        debugger;
         story.save();
         
         // FIXME CHECK
         story = app.models.Story.loadForeign(story);
         
-        app.data.set("currentStory", story);
-        app.go("story");
+        app.go("#story/" + story.id);
     });
 
     /*
      * Story w/ picture
      */
 
-    var camera = $("#mod-story-create-picture").ui({
+   /* var camera = $("#mod-story-create-picture").ui({
         type: "Camera"
     });    
     camera.onSuccess(function(imageURI) {
         $(this.input).setClass("mod-story-create-picture-active");
         this.hide();
         story.picture = imageURI;
-    });
+    });*/
     
-    // FIXME CHECK (styles)
-    //$("#mod-story-create-textarea").ui({type:"TextArea"});
-    //$("#mod-story-create-title").ui({type:"Text"});
     
-}(Mootor));
+}(window.$));
