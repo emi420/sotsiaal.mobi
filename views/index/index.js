@@ -4,7 +4,6 @@
     
     var app = m.app,
         modStoryList = m.app._mod.StoryList,
-        modTopbar = m.app._mod.Topbar,
         story;
     
     m.app.view("index").on("ready", function(self) {

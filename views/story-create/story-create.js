@@ -19,6 +19,10 @@
             pop:            0,
             category:       1
         });
+        
+        self.ui.panel.on("transitionEnd", function() {
+            $modStoryCreateTitle.focus();
+        });
 
     });
     
@@ -26,7 +30,6 @@
 
         story.title = $modStoryCreateTitle[0].value;
         story.description = $modStoryCreateTextarea[0].value;
-        debugger;
         story.save();
         
         // FIXME CHECK
