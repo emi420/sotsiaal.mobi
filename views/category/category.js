@@ -6,10 +6,20 @@
         modStoryList = m.app._mod.StoryList,
         story;
     
+    
+    // TODO
+    /*
+     m.app.view("category").on({
+         ready: {},
+         load: {},
+     });
+    */
+        
     m.app.view("category").on("ready", function(self) {
         
         // Story List module
         modStoryList.on("ready", function(self) {
+            // Load html
             $("#category-mod-story-list").html(self.html);
             // Bind data
             modStoryList.bindData($("#category-mod-story-list")[0], []);

@@ -19,9 +19,7 @@
             $storyMod[0]
         );
         m.app._mod.Comments.bindData();
-    });
-
-    m.app.view("story").on("ready", function(self) {
+    }).on("ready", function(self) {
         
         // Comments module
         m.app._mod.Comments.on("ready", function(self) {

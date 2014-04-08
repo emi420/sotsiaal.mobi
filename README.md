@@ -2,17 +2,19 @@
 
 # Install & run
 
-.1 Clone this project:
+1) Clone this project:
 
 $ clone https://github.com/emi420/sotsiaal.mobi/
 
-.2 Download and unpack Mootor:
+2) Download and unpack Mootor:
 
 $ cd sotsiaal.mobi
 $ wget -o https://codeload.github.com/emi420/Mootor/tar.gz/dist
 $ tar zxf Mootor-dist.tar
 
-.3 Run on a web server.
+3) Run on a web server and load sample data from the console:
+
+> m.app._mod.StoryList.sampleData()
 
 # How can I help?
 
