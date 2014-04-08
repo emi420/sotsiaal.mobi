@@ -36,6 +36,7 @@
 
             var script = document.createElement("script");
             script.src =  path + '.js';
+            script.setAttribute("type", "text/javascript");
             document.head.appendChild(script);
             script.addEventListener("load", function() {
                 Mootor.Event.dispatch(name + ":ready", this);
@@ -44,6 +45,8 @@
             self.script = script;
 
             var css = document.createElement("link");
+            css.setAttribute("type", "text/css");
+            css.setAttribute("rel", "stylesheet");
             css.href =  path + '.css';
             document.head.appendChild(css);
             self.css = css;
