@@ -5,15 +5,6 @@
     var app = m.app,
         modStoryList = m.app._mod.StoryList,
         story;
-    
-    
-    // TODO
-    /*
-     m.app.view("category").on({
-         ready: {},
-         load: {},
-     });
-    */
         
     m.app.view("category").on("ready", function(self) {
         
@@ -37,7 +28,7 @@
 
         // Story list for category
         var stories = app.models.Story.filter({category: category});
-        modStoryList.updateBindings(stories)             
+        //modStoryList.updateBindings(stories)             
     });
 
 }(window.Zepto));
